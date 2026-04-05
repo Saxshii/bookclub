@@ -1,0 +1,75 @@
+<nav class="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-amber-100 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 group">
+        <span class="text-2xl">📚</span>
+        <span class="font-serif text-2xl font-bold text-amber-900 group-hover:text-amber-700 transition-colors">
+          BookClub
+        </span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="/"            class="nav-link">Home</a>
+        <a href="/explore"     class="nav-link">Explore</a>
+        <a href="/communities" class="nav-link">Communities</a>
+
+        <% if (currentUser) { %>
+          <a href="/books/bookshelf" class="nav-link">My Shelf</a>
+          <a href="/profile"         class="nav-link">Profile</a>
+          <a href="/auth/logout"
+             class="btn-primary text-sm py-2 px-5">
+            Logout
+          </a>
+        <% } else { %>
+          <a href="/auth/login"  class="btn-secondary text-sm py-2 px-5">Login</a>
+          <a href="/auth/signup" class="btn-primary  text-sm py-2 px-5">Join Free</a>
+        <% } %>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button id="mobile-menu-btn"
+              class="md:hidden p-2 rounded-lg text-amber-900 hover:bg-amber-100 transition-colors"
+              aria-label="Toggle menu">
+        <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-amber-100 mt-2 pt-4">
+      <div class="flex flex-col gap-3">
+        <a href="/"            class="nav-link py-1">Home</a>
+        <a href="/explore"     class="nav-link py-1">Explore</a>
+        <a href="/communities" class="nav-link py-1">Communities</a>
+        <% if (currentUser) { %>
+          <a href="/books/bookshelf" class="nav-link py-1">My Shelf</a>
+          <a href="/profile"         class="nav-link py-1">Profile</a>
+          <a href="/auth/logout"     class="nav-link py-1 text-red-600">Logout</a>
+        <% } else { %>
+          <a href="/auth/login"  class="nav-link py-1">Login</a>
+          <a href="/auth/signup" class="btn-primary text-center mt-2">Join Free</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const btn  = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const ham  = document.getElementById('hamburger-icon');
+  const cls  = document.getElementById('close-icon');
+  btn.addEventListener('click', () => {
+    menu.classList.toggle('hidden');
+    ham.classList.toggle('hidden');
+    cls.classList.toggle('hidden');
+  });
+</script>

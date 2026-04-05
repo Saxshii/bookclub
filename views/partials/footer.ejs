@@ -1,0 +1,53 @@
+<footer class="bg-amber-900 text-amber-100 mt-20">
+  <div class="max-w-7xl mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-2xl">📚</span>
+          <span class="font-serif text-2xl font-bold text-white">BookClub</span>
+        </div>
+        <p class="text-amber-300 text-sm leading-relaxed">
+          Your cozy virtual library. Explore genres, build your shelf,
+          and connect with fellow readers.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="font-serif font-semibold text-white mb-3">Explore</h4>
+        <div class="flex flex-col gap-2 text-sm">
+          <a href="/"            class="text-amber-300 hover:text-white transition-colors">Home</a>
+          <a href="/explore"     class="text-amber-300 hover:text-white transition-colors">All Genres</a>
+          <a href="/communities" class="text-amber-300 hover:text-white transition-colors">Communities</a>
+          <% if (currentUser) { %>
+            <a href="/books/bookshelf" class="text-amber-300 hover:text-white transition-colors">My Bookshelf</a>
+          <% } else { %>
+            <a href="/auth/signup" class="text-amber-300 hover:text-white transition-colors">Join BookClub</a>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Genres -->
+      <div>
+        <h4 class="font-serif font-semibold text-white mb-3">Genres</h4>
+        <div class="grid grid-cols-2 gap-1 text-sm">
+          <a href="/genre/fantasy"     class="text-amber-300 hover:text-white transition-colors">🐉 Fantasy</a>
+          <a href="/genre/romance"     class="text-amber-300 hover:text-white transition-colors">💕 Romance</a>
+          <a href="/genre/thriller"    class="text-amber-300 hover:text-white transition-colors">🔪 Thriller</a>
+          <a href="/genre/mystery"     class="text-amber-300 hover:text-white transition-colors">🔍 Mystery</a>
+          <a href="/genre/sci-fi"      class="text-amber-300 hover:text-white transition-colors">🚀 Sci-Fi</a>
+          <a href="/genre/horror"      class="text-amber-300 hover:text-white transition-colors">👻 Horror</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t border-amber-800 pt-6 flex flex-col md:flex-row
+                items-center justify-between gap-2 text-sm text-amber-400">
+      <p>© 2025 BookClub. All rights reserved.</p>
+      <p>Made with <span class="text-red-400">♥</span> by Sakshi</p>
+    </div>
+  </div>
+</footer>

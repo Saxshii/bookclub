@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/output.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-cream min-h-screen flex flex-col">
+
+  <%- include('../partials/navbar') %>
+
+  <main class="flex-1 flex items-center justify-center px-4 py-24">
+    <div class="w-full max-w-md">
+
+      <!-- Card -->
+      <div class="bg-white rounded-3xl shadow-warm-lg p-8 border border-amber-100">
+
+        <!-- Header -->
+        <div class="text-center mb-8">
+          <span class="text-5xl block mb-3">📚</span>
+          <h1 class="font-serif text-3xl font-bold text-amber-900">Welcome back</h1>
+          <p class="text-amber-600 mt-1 text-sm">Login to your BookClub account</p>
+        </div>
+
+        <!-- Flash errors -->
+        <% if (error && error.length > 0) { %>
+          <div class="flash-error mb-4">
+            <span>✕</span> <%= error %>
+          </div>
+        <% } %>
+        <% if (error_msg && error_msg.length > 0) { %>
+          <div class="flash-error mb-4">
+            <span>✕</span> <%= error_msg %>
+          </div>
+        <% } %>
+        <% if (success_msg && success_msg.length > 0) { %>
+          <div class="flash-success mb-4">
+            <span>✓</span> <%= success_msg %>
+          </div>
+        <% } %>
+
+        <!-- Form -->
+        <form action="/auth/login" method="POST" class="space-y-5">
+
+          <div>
+            <label class="block text-sm font-medium text-amber-800 mb-1.5">
+              Email address
+            </label>
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="you@example.com"
+              class="form-input"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-amber-800 mb-1.5">
+              Password
+            </label>
+            <div class="relative">
+              <input
+                type="password"
+                name="password"
+                id="password-field"
+                required
+                placeholder="Enter your password"
+                class="form-input pr-12"
+              />
+              <button type="button"
+                      onclick="togglePassword()"
+                      class="absolute right-4 top-1/2 -translate-y-1/2 text-amber-500
+                             hover:text-amber-700 transition-colors text-sm">
+                👁
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary w-full text-center py-3 text-base">
+            Login to BookClub
+          </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-3 my-6">
+          <div class="flex-1 h-px bg-amber-100"></div>
+          <span class="text-amber-400 text-xs">or</span>
+          <div class="flex-1 h-px bg-amber-100"></div>
+        </div>
+
+        <!-- Signup link -->
+        <p class="text-center text-sm text-amber-700">
+          Don't have an account?
+          <a href="/auth/signup"
+             class="font-semibold text-amber-900 hover:text-amber-600 underline underline-offset-2">
+            Join BookClub free
+          </a>
+        </p>
+      </div>
+
+      <!-- Back to home -->
+      <p class="text-center mt-4">
+        <a href="/" class="text-amber-600 hover:text-amber-800 text-sm transition-colors">
+          ← Back to homepage
+        </a>
+      </p>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script>
+    function togglePassword() {
+      const field = document.getElementById('password-field');
+      field.type = field.type === 'password' ? 'text' : 'password';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/output.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-cream min-h-screen flex flex-col">
+
+  <%- include('../partials/navbar') %>
+
+  <main class="flex-1 flex items-center justify-center px-4 py-24">
+    <div class="w-full max-w-md">
+
+      <!-- Card -->
+      <div class="bg-white rounded-3xl shadow-warm-lg p-8 border border-amber-100">
+
+        <!-- Header -->
+        <div class="text-center mb-8">
+          <span class="text-5xl block mb-3">🌟</span>
+          <h1 class="font-serif text-3xl font-bold text-amber-900">Join BookClub</h1>
+          <p class="text-amber-600 mt-1 text-sm">Create your free account today</p>
+        </div>
+
+        <!-- Validation errors -->
+        <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+          <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
+            <% errors.forEach(err => { %>
+              <p class="text-red-700 text-sm flex items-center gap-2">
+                <span>✕</span> <%= err %>
+              </p>
+            <% }) %>
+          </div>
+        <% } %>
+
+        <!-- Form -->
+        <form action="/auth/signup" method="POST" class="space-y-5">
+
+          <div>
+            <label class="block text-sm font-medium text-amber-800 mb-1.5">
+              Your name
+            </label>
+            <input
+              type="text"
+              name="name"
+              required
+              placeholder="Sakshi"
+              value="<%= typeof formData !== 'undefined' ? formData.name : '' %>"
+              class="form-input"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-amber-800 mb-1.5">
+              Email address
+            </label>
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="you@example.com"
+              value="<%= typeof formData !== 'undefined' ? formData.email : '' %>"
+              class="form-input"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-amber-800 mb-1.5">
+              Password
+            </label>
+            <div class="relative">
+              <input
+                type="password"
+                name="password"
+                id="password-field"
+                required
+                placeholder="At least 6 characters"
+                class="form-input pr-12"
+              />
+              <button type="button"
+                      onclick="togglePassword('password-field')"
+                      class="absolute right-4 top-1/2 -translate-y-1/2 text-amber-500
+                             hover:text-amber-700 text-sm">👁</button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-amber-800 mb-1.5">
+              Confirm password
+            </label>
+            <div class="relative">
+              <input
+                type="password"
+                name="confirmPassword"
+                id="confirm-field"
+                required
+                placeholder="Repeat your password"
+                class="form-input pr-12"
+              />
+              <button type="button"
+                      onclick="togglePassword('confirm-field')"
+                      class="absolute right-4 top-1/2 -translate-y-1/2 text-amber-500
+                             hover:text-amber-700 text-sm">👁</button>
+            </div>
+          </div>
+
+          <!-- Password strength bar -->
+          <div>
+            <div class="h-1.5 bg-amber-100 rounded-full overflow-hidden">
+              <div id="strength-bar"
+                   class="h-full rounded-full transition-all duration-300 w-0 bg-red-400">
+              </div>
+            </div>
+            <p id="strength-text" class="text-xs text-amber-500 mt-1"></p>
+          </div>
+
+          <button type="submit" class="btn-primary w-full text-center py-3 text-base">
+            Create My Account
+          </button>
+
+          <p class="text-xs text-amber-500 text-center">
+            By joining, you agree to our terms of service.
+          </p>
+        </form>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-3 my-6">
+          <div class="flex-1 h-px bg-amber-100"></div>
+          <span class="text-amber-400 text-xs">or</span>
+          <div class="flex-1 h-px bg-amber-100"></div>
+        </div>
+
+        <p class="text-center text-sm text-amber-700">
+          Already a member?
+          <a href="/auth/login"
+             class="font-semibold text-amber-900 hover:text-amber-600 underline underline-offset-2">
+            Login here
+          </a>
+        </p>
+      </div>
+
+      <p class="text-center mt-4">
+        <a href="/" class="text-amber-600 hover:text-amber-800 text-sm transition-colors">
+          ← Back to homepage
+        </a>
+      </p>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script>
+    function togglePassword(id) {
+      const f = document.getElementById(id);
+      f.type = f.type === 'password' ? 'text' : 'password';
+    }
+
+    // Password strength indicator
+    document.getElementById('password-field').addEventListener('input', function () {
+      const val = this.value;
+      const bar = document.getElementById('strength-bar');
+      const txt = document.getElementById('strength-text');
+      let strength = 0;
+      if (val.length >= 6)  strength++;
+      if (val.length >= 10) strength++;
+      if (/[A-Z]/.test(val)) strength++;
+      if (/[0-9]/.test(val)) strength++;
+      if (/[^A-Za-z0-9]/.test(val)) strength++;
+
+      const levels = [
+        { w: '0%',   color: 'bg-red-400',    label: '' },
+        { w: '25%',  color: 'bg-red-400',    label: 'Too short' },
+        { w: '50%',  color: 'bg-amber-400',  label: 'Fair' },
+        { w: '75%',  color: 'bg-yellow-400', label: 'Good' },
+        { w: '90%',  color: 'bg-green-400',  label: 'Strong' },
+        { w: '100%', color: 'bg-green-500',  label: 'Very strong' },
+      ];
+      const l = levels[strength] || levels[0];
+      bar.className = `h-full rounded-full transition-all duration-300 ${l.color}`;
+      bar.style.width = l.w;
+      txt.textContent = l.label;
+    });
+  </script>
+</body>
+</html>

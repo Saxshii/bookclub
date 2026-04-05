@@ -1,0 +1,48 @@
+<!-- Usage: <%- include('../partials/bookCard', { book, showAddBtn: true }) %> -->
+<div class="book-card group" data-book-id="<%= book.openLibraryId %>">
+
+  <!-- Cover -->
+  <div class="relative overflow-hidden" style="height: 220px;">
+    <img
+      src="<%= book.coverUrl || (book.coverId ? `https://covers.openlibrary.org/b/id/${book.coverId}-M.jpg` : '/images/fallback-cover.jpg') %>"
+      alt="<%= book.title %>"
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      onerror="this.src='/images/fallback-cover.jpg'"
+    />
+    <!-- Overlay on hover -->
+    <div class="absolute inset-0 bg-amber-900/60 opacity-0 group-hover:opacity-100
+                transition-opacity duration-300 flex items-center justify-center">
+      <% if (typeof showAddBtn !== 'undefined' && showAddBtn && typeof currentUser !== 'undefined' && currentUser) { %>
+        <button
+          onclick="addToShelf(this)"
+          data-id="<%= book.openLibraryId %>"
+          data-title="<%= book.title.replace(/'/g, '&apos;') %>"
+          data-author="<%= (book.author || 'Unknown').replace(/'/g, '&apos;') %>"
+          data-coverid="<%= book.coverId || '' %>"
+          data-coverurl="<%= book.coverUrl || '' %>"
+          class="bg-white text-amber-900 font-semibold text-sm px-4 py-2
+                 rounded-full hover:bg-amber-100 transition-colors shadow-lg">
+          + Add to Shelf
+        </button>
+      <% } else if (typeof currentUser !== 'undefined' && !currentUser) { %>
+        <a href="/auth/login"
+           class="bg-white text-amber-900 font-semibold text-sm px-4 py-2
+                  rounded-full hover:bg-amber-100 transition-colors shadow-lg">
+          Login to Save
+        </a>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div class="p-3">
+    <h3 class="font-serif font-semibold text-amber-900 text-sm leading-tight
+               line-clamp-2 mb-1">
+      <%= book.title %>
+    </h3>
+    <p class="text-amber-600 text-xs"><%= book.author || 'Unknown Author' %></p>
+    <% if (book.year) { %>
+      <p class="text-amber-400 text-xs mt-0.5"><%= book.year %></p>
+    <% } %>
+  </div>
+</div>

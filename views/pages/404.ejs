@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>404 — BookClub</title>
+  <link rel="stylesheet" href="/css/output.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato&display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-cream min-h-screen flex flex-col">
+  <%- include('../partials/navbar') %>
+  <main class="flex-1 flex flex-col items-center justify-center text-center px-4">
+    <span class="text-8xl mb-6">📚</span>
+    <h1 class="font-serif text-5xl font-bold text-amber-900 mb-4">Page not found</h1>
+    <p class="text-amber-600 mb-8 max-w-md">
+      Looks like this page wandered off into the stacks and got lost.
+    </p>
+    <a href="/" class="btn-primary">← Back to Homepage</a>
+  </main>
+  <%- include('../partials/footer') %>
+</body>
+</html>
