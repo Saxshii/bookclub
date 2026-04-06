@@ -37,3 +37,9 @@ module.exports = {
   },
   plugins: [],
 }
+safelist: [
+  'from-indigo-200','via-purple-200','to-pink-200',
+  'from-gray-300','via-slate-300','to-gray-400',
+  'from-pink-200','via-rose-200','to-orange-200',
+  'from-yellow-200','via-amber-200','to-orange-300'
+]

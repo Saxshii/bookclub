@@ -1,0 +1,26 @@
+const mysteryCovers = [
+  { title: "Murder on the Orient Express", author: "Agatha Christie", image: { url: "https://covers.openlibrary.org/b/id/8406787-L.jpg" } },
+  { title: "And Then There Were None", author: "Agatha Christie", image: { url: "https://covers.openlibrary.org/b/id/8228662-L.jpg" } },
+  { title: "The ABC Murders", author: "Agatha Christie", image: { url: "https://covers.openlibrary.org/b/id/8743544-L.jpg" } },
+  { title: "A Good Girl's Guide to Murder", author: "Holly Jackson", image: { url: "https://covers.openlibrary.org/b/id/10308490-L.jpg" } },
+  { title: "Good Girl Bad Blood", author: "Holly Jackson", image: { url: "https://covers.openlibrary.org/b/id/12349035-L.jpg" } },
+  { title: "As Good As Dead", author: "Holly Jackson", image: { url: "https://covers.openlibrary.org/b/id/12349034-L.jpg" } },
+  { title: "The Thursday Murder Club", author: "Richard Osman", image: { url: "https://covers.openlibrary.org/b/id/10521089-L.jpg" } },
+  { title: "The Man Who Died Twice", author: "Richard Osman", image: { url: "https://covers.openlibrary.org/b/id/12349033-L.jpg" } },
+  { title: "The Girl with the Dragon Tattoo", author: "Stieg Larsson", image: { url: "https://covers.openlibrary.org/b/id/7966790-L.jpg" } },
+  { title: "The Da Vinci Code", author: "Dan Brown", image: { url: "https://covers.openlibrary.org/b/id/7264615-L.jpg" } },
+  { title: "Angels and Demons", author: "Dan Brown", image: { url: "https://covers.openlibrary.org/b/id/7264614-L.jpg" } },
+  { title: "The Cuckoo's Calling", author: "Robert Galbraith", image: { url: "https://covers.openlibrary.org/b/id/7966789-L.jpg" } },
+  { title: "The Silkworm", author: "Robert Galbraith", image: { url: "https://covers.openlibrary.org/b/id/8228661-L.jpg" } },
+  { title: "The Hound of the Baskervilles", author: "Arthur Conan Doyle", image: { url: "https://covers.openlibrary.org/b/id/8406785-L.jpg" } },
+  { title: "In the Woods", author: "Tana French", image: { url: "https://covers.openlibrary.org/b/id/8228660-L.jpg" } },
+  { title: "The Secret Place", author: "Tana French", image: { url: "https://covers.openlibrary.org/b/id/8406784-L.jpg" } },
+  { title: "Magpie Murders", author: "Anthony Horowitz", image: { url: "https://covers.openlibrary.org/b/id/8750249-L.jpg" } },
+  { title: "The Turn of the Key", author: "Ruth Ware", image: { url: "https://covers.openlibrary.org/b/id/9255721-L.jpg" } },
+  { title: "The Woman in Cabin 10", author: "Ruth Ware", image: { url: "https://covers.openlibrary.org/b/id/8749670-L.jpg" } },
+  { title: "The Night She Disappeared", author: "Lisa Jewell", image: { url: "https://covers.openlibrary.org/b/id/12803860-L.jpg" } },
+  { title: "Gone Girl", author: "Gillian Flynn", image: { url: "https://covers.openlibrary.org/b/id/7966791-L.jpg" } },
+  { title: "The Woman in White", author: "Wilkie Collins", image: { url: "https://covers.openlibrary.org/b/id/8406783-L.jpg" } },
+];
+
+module.exports = mysteryCovers;

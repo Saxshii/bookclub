@@ -1,0 +1,117 @@
+ <style>
+  .dev-page { background: #faf7f2; min-height: 100vh; padding: 60px 24px 80px; }
+  .dev-container { max-width: 960px; margin: 0 auto; }
+
+  /* Hero */
+  .dev-hero { text-align: center; margin-bottom: 56px; }
+  .dev-top-label { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #a8845a; margin-bottom: 24px; display: block; }
+  .dev-avatar { width: 150px; height: 150px; border-radius: 50%; border: 4px solid #c9a87c; object-fit: cover; display: block; margin: 0 auto 24px; }
+  .dev-tagline { font-size: 17px; color: #a8845a; font-style: italic; margin: 0; }
+
+  /* Letter card */
+  .dev-letter { background: #fff; border: 1px solid #e8d5b7; border-radius: 20px; padding: 56px 64px; margin-bottom: 32px; position: relative; }
+  .dev-letter-bar { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: #c9a87c; border-radius: 20px 20px 0 0; }
+  .dev-salutation { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 600; color: #3d1f08; margin-bottom: 28px; }
+  .dev-p { font-size: 17px; line-height: 2; color: #5a3a1a; margin-bottom: 22px; }
+  .dev-p:last-of-type { margin-bottom: 0; }
+  .dev-p-italic { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 22px; color: #7a4a28; margin-bottom: 22px; }
+  .dev-sign { border-top: 1px solid #e8d5b7; padding-top: 28px; margin-top: 36px; }
+  .dev-sign p { font-size: 16px; color: #7a4a28; font-style: italic; margin-bottom: 6px; }
+  .dev-sign strong { font-family: 'Playfair Display', Georgia, serif; font-size: 28px; color: #3d1f08; font-weight: 600; }
+
+  /* Vision */
+  .dev-vision { background: #3d1f08; border-radius: 20px; padding: 48px 64px; margin-bottom: 32px; }
+  .dev-vision-label { font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase; color: #c9a87c; margin-bottom: 16px; display: block; }
+  .dev-vision-text { font-size: 17px; line-height: 2; color: #f0e6d3; margin-bottom: 24px; }
+  .dev-vision-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .dev-vision-pill { background: #5a3318; color: #c9a87c; font-size: 12px; padding: 7px 18px; border-radius: 9999px; }
+
+  /* Fun grid */
+  .dev-fun-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+  @media (max-width: 700px) { .dev-fun-grid { grid-template-columns: repeat(2, 1fr); } }
+  .dev-fun-card { background: #fff; border: 1px solid #e8d5b7; border-radius: 14px; padding: 22px 24px; }
+  .dev-fun-label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #a8845a; margin-bottom: 10px; display: block; }
+  .dev-fun-val { font-size: 15px; color: #3d1f08; line-height: 1.5; }
+
+  /* GitHub */
+  .dev-gh-wrap { display: flex; justify-content: center; margin-bottom: 48px; }
+  .dev-gh-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; border: 1px solid #c9a87c; border-radius: 10px; color: #7a4a28; background: #fff; text-decoration: none; font-size: 15px; transition: background 0.2s; }
+  .dev-gh-btn:hover { background: #f0e6d3; }
+  .dev-gh-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  .dev-footer-note { text-align: center; font-size: 14px; color: #a8845a; font-style: italic; }
+
+  @media (max-width: 600px) {
+    .dev-letter { padding: 36px 28px; }
+    .dev-vision { padding: 36px 28px; }
+    .dev-p, .dev-vision-text { font-size: 16px; }
+  }
+</style>
+
+<div class="dev-page">
+  <div class="dev-container">
+
+    <div class="dev-hero">
+      <span class="dev-top-label">The human behind the code</span>
+      <img src="/images/sakshi.jpg" alt="Sakshi" class="dev-avatar" />
+      <p class="dev-tagline">B.Tech Student &nbsp;·&nbsp; Developer &nbsp;·&nbsp; Lifelong Reader</p>
+    </div>
+
+    <div class="dev-letter">
+      <div class="dev-letter-bar"></div>
+      <p class="dev-salutation">Hey there, fellow reader —</p>
+      <p class="dev-p">I’m Sakshi — a B.Tech student who splits her time between writing code and getting completely lost in books. I've always had this thing about libraries — the way they feel, the quiet promise of a thousand stories waiting on their shelves, the comfort of knowing exactly where every book belongs.</p>
+      <p class="dev-p">For years I searched for a free platform where I could build my own digital library — something that felt warm and personal, not sterile and corporate. I wanted somewhere to track what I'd read, discover what I'd love next, and find people who talk about books the way I do. I looked everywhere. Nothing felt like home.</p>
+      <p class="dev-p-italic">So...I built it myself.</p>
+      <p class="dev-p">BookClub is my dream library made real — built late at night between assignments and exams, designed with love, and imagined for every reader who has ever wished for a cozy corner of the internet that just <em>gets</em> them. Every single feature on this site exists because I personally wanted it.</p>
+      <p class="dev-p">This is still growing, still evolving — just like me. I hope it becomes your favourite corner of the internet too.</p>
+      <div class="dev-sign">
+        <p>With warmth & a good book recommendation,</p>
+        <strong>Sakshi</strong>
+      </div>
+    </div>
+
+    <div class="dev-vision">
+      <span class="dev-vision-label">WHAT I'M BUILDING NEXT</span>
+      <p class="dev-vision-text">I'm building towards a world where every reader truly owns their shelf. Soon you'll be able to set your personal library as public or private, share curated reading lists with the community, and connect with readers whose tastes mirror yours. BookClub will grow into everything a reader could ever need — and it will always be free.</p>
+      <div class="dev-vision-pills">
+        <span class="dev-vision-pill">Public shelves</span>
+        <span class="dev-vision-pill">Private shelves</span>
+        <span class="dev-vision-pill">Reading lists</span>
+        <span class="dev-vision-pill">Community events</span>
+      </div>
+    </div>
+
+    <div class="dev-fun-grid">
+      <div class="dev-fun-card">
+        <span class="dev-fun-label">Favourite genre</span>
+        <p class="dev-fun-val">Mystery & Thriller</p>
+      </div>
+      <div class="dev-fun-card">
+        <span class="dev-fun-label">Built with</span>
+        <p class="dev-fun-val">Node, EJS, Tailwind & chai</p>
+      </div>
+      <div class="dev-fun-card">
+        <span class="dev-fun-label">Books this year</span>
+        <p class="dev-fun-val">More than my syllabus</p>
+      </div>
+      <div class="dev-fun-card">
+        <span class="dev-fun-label">Status</span>
+        <p class="dev-fun-val">Probably reading right now</p>
+      </div>
+    </div>
+
+    <div class="dev-gh-wrap">
+      <a href="https://github.com/Saxshii" target="_blank" rel="noopener noreferrer" class="dev-gh-btn">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+        </svg>
+        github.com/Saxshii
+      </a>
+    </div>
+
+    <p class="dev-footer-note">Built with love, caffeine, and a deep personal need for a better book app.</p>
+
+  </div>
+</div> 
+

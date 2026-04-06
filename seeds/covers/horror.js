@@ -1,0 +1,26 @@
+const horrorCovers = [
+  { title: "It", author: "Stephen King", image: { url: "https://covers.openlibrary.org/b/id/8228659-L.jpg" } },
+  { title: "The Shining", author: "Stephen King", image: { url: "https://covers.openlibrary.org/b/id/7264613-L.jpg" } },
+  { title: "Pet Sematary", author: "Stephen King", image: { url: "https://covers.openlibrary.org/b/id/8228658-L.jpg" } },
+  { title: "Carrie", author: "Stephen King", image: { url: "https://covers.openlibrary.org/b/id/7264612-L.jpg" } },
+  { title: "Doctor Sleep", author: "Stephen King", image: { url: "https://covers.openlibrary.org/b/id/7966788-L.jpg" } },
+  { title: "Mexican Gothic", author: "Silvia Moreno-Garcia", image: { url: "https://covers.openlibrary.org/b/id/10308488-L.jpg" } },
+  { title: "The Haunting of Hill House", author: "Shirley Jackson", image: { url: "https://covers.openlibrary.org/b/id/8406782-L.jpg" } },
+  { title: "We Have Always Lived in the Castle", author: "Shirley Jackson", image: { url: "https://covers.openlibrary.org/b/id/8406781-L.jpg" } },
+  { title: "Bird Box", author: "Josh Malerman", image: { url: "https://covers.openlibrary.org/b/id/7966787-L.jpg" } },
+  { title: "House of Leaves", author: "Mark Z. Danielewski", image: { url: "https://covers.openlibrary.org/b/id/8228657-L.jpg" } },
+  { title: "Dracula", author: "Bram Stoker", image: { url: "https://covers.openlibrary.org/b/id/8406780-L.jpg" } },
+  { title: "Frankenstein", author: "Mary Shelley", image: { url: "https://covers.openlibrary.org/b/id/8406779-L.jpg" } },
+  { title: "The Exorcist", author: "William Peter Blatty", image: { url: "https://covers.openlibrary.org/b/id/7264611-L.jpg" } },
+  { title: "Coraline", author: "Neil Gaiman", image: { url: "https://covers.openlibrary.org/b/id/8228656-L.jpg" } },
+  { title: "The Only Good Indians", author: "Stephen Graham Jones", image: { url: "https://covers.openlibrary.org/b/id/10308487-L.jpg" } },
+  { title: "The Silent Companions", author: "Laura Purcell", image: { url: "https://covers.openlibrary.org/b/id/8750248-L.jpg" } },
+  { title: "Hidden Pictures", author: "Jason Rekulak", image: { url: "https://covers.openlibrary.org/b/id/12803859-L.jpg" } },
+  { title: "A Head Full of Ghosts", author: "Paul Tremblay", image: { url: "https://covers.openlibrary.org/b/id/8749669-L.jpg" } },
+  { title: "My Best Friend's Exorcism", author: "Grady Hendrix", image: { url: "https://covers.openlibrary.org/b/id/10308486-L.jpg" } },
+  { title: "The Southern Book Club's Guide to Slaying Vampires", author: "Grady Hendrix", image: { url: "https://covers.openlibrary.org/b/id/10308485-L.jpg" } },
+  { title: "The Troop", author: "Nick Cutter", image: { url: "https://covers.openlibrary.org/b/id/8228655-L.jpg" } },
+  { title: "The Ritual", author: "Adam Nevill", image: { url: "https://covers.openlibrary.org/b/id/8228654-L.jpg" } },
+];
+
+module.exports = horrorCovers;

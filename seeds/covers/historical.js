@@ -1,0 +1,26 @@
+const historicalCovers = [
+  { title: "The Book Thief", author: "Markus Zusak", image: { url: "https://covers.openlibrary.org/b/id/8228653-L.jpg" } },
+  { title: "All the Light We Cannot See", author: "Anthony Doerr", image: { url: "https://covers.openlibrary.org/b/id/7966786-L.jpg" } },
+  { title: "The Nightingale", author: "Kristin Hannah", image: { url: "https://covers.openlibrary.org/b/id/8228652-L.jpg" } },
+  { title: "The Tattooist of Auschwitz", author: "Heather Morris", image: { url: "https://covers.openlibrary.org/b/id/8750247-L.jpg" } },
+  { title: "The Kite Runner", author: "Khaled Hosseini", image: { url: "https://covers.openlibrary.org/b/id/7264610-L.jpg" } },
+  { title: "A Thousand Splendid Suns", author: "Khaled Hosseini", image: { url: "https://covers.openlibrary.org/b/id/7264609-L.jpg" } },
+  { title: "Pachinko", author: "Min Jin Lee", image: { url: "https://covers.openlibrary.org/b/id/8750246-L.jpg" } },
+  { title: "Circe", author: "Madeline Miller", image: { url: "https://covers.openlibrary.org/b/id/8750245-L.jpg" } },
+  { title: "The Song of Achilles", author: "Madeline Miller", image: { url: "https://covers.openlibrary.org/b/id/7966785-L.jpg" } },
+  { title: "The Help", author: "Kathryn Stockett", image: { url: "https://covers.openlibrary.org/b/id/7264608-L.jpg" } },
+  { title: "Pride and Prejudice", author: "Jane Austen", image: { url: "https://covers.openlibrary.org/b/id/8406778-L.jpg" } },
+  { title: "Jane Eyre", author: "Charlotte Bronte", image: { url: "https://covers.openlibrary.org/b/id/8406777-L.jpg" } },
+  { title: "Wuthering Heights", author: "Emily Bronte", image: { url: "https://covers.openlibrary.org/b/id/8406776-L.jpg" } },
+  { title: "Little Women", author: "Louisa May Alcott", image: { url: "https://covers.openlibrary.org/b/id/8406775-L.jpg" } },
+  { title: "The Great Gatsby", author: "F. Scott Fitzgerald", image: { url: "https://covers.openlibrary.org/b/id/7264607-L.jpg" } },
+  { title: "Outlander", author: "Diana Gabaldon", image: { url: "https://covers.openlibrary.org/b/id/8228651-L.jpg" } },
+  { title: "Memoirs of a Geisha", author: "Arthur Golden", image: { url: "https://covers.openlibrary.org/b/id/7966784-L.jpg" } },
+  { title: "The Pillars of the Earth", author: "Ken Follett", image: { url: "https://covers.openlibrary.org/b/id/8228650-L.jpg" } },
+  { title: "Gone with the Wind", author: "Margaret Mitchell", image: { url: "https://covers.openlibrary.org/b/id/8406774-L.jpg" } },
+  { title: "The Alice Network", author: "Kate Quinn", image: { url: "https://covers.openlibrary.org/b/id/8750244-L.jpg" } },
+  { title: "The Henna Artist", author: "Alka Joshi", image: { url: "https://covers.openlibrary.org/b/id/10308484-L.jpg" } },
+  { title: "The Palace of Illusions", author: "Chitra Banerjee Divakaruni", image: { url: "https://covers.openlibrary.org/b/id/8228649-L.jpg" } },
+];
+
+module.exports = historicalCovers;

@@ -1,0 +1,28 @@
+const thrillerCovers = [
+  { title: "The Silent Patient", author: "Alex Michaelides", image: { url: "https://covers.openlibrary.org/b/id/8750833-L.jpg" } },
+  { title: "The Maidens", author: "Alex Michaelides", image: { url: "https://covers.openlibrary.org/b/id/10521093-L.jpg" } },
+  { title: "Gone Girl", author: "Gillian Flynn", image: { url: "https://covers.openlibrary.org/b/id/7966791-L.jpg" } },
+  { title: "Sharp Objects", author: "Gillian Flynn", image: { url: "https://covers.openlibrary.org/b/id/8228665-L.jpg" } },
+  { title: "Dark Places", author: "Gillian Flynn", image: { url: "https://covers.openlibrary.org/b/id/7264617-L.jpg" } },
+  { title: "The Girl on the Train", author: "Paula Hawkins", image: { url: "https://covers.openlibrary.org/b/id/8228667-L.jpg" } },
+  { title: "The Housemaid", author: "Freida McFadden", image: { url: "https://covers.openlibrary.org/b/id/13104400-L.jpg" } },
+  { title: "The Housemaid's Secret", author: "Freida McFadden", image: { url: "https://covers.openlibrary.org/b/id/13588073-L.jpg" } },
+  { title: "Never Lie", author: "Freida McFadden", image: { url: "https://covers.openlibrary.org/b/id/13259271-L.jpg" } },
+  { title: "The Inmate", author: "Freida McFadden", image: { url: "https://covers.openlibrary.org/b/id/13104401-L.jpg" } },
+  { title: "Behind Closed Doors", author: "B.A. Paris", image: { url: "https://covers.openlibrary.org/b/id/8743546-L.jpg" } },
+  { title: "Rock Paper Scissors", author: "Alice Feeney", image: { url: "https://covers.openlibrary.org/b/id/12349037-L.jpg" } },
+  { title: "Then She Was Gone", author: "Lisa Jewell", image: { url: "https://covers.openlibrary.org/b/id/8749672-L.jpg" } },
+  { title: "None of This Is True", author: "Lisa Jewell", image: { url: "https://covers.openlibrary.org/b/id/13897083-L.jpg" } },
+  { title: "The Family Upstairs", author: "Lisa Jewell", image: { url: "https://covers.openlibrary.org/b/id/10308494-L.jpg" } },
+  { title: "The Guest List", author: "Lucy Foley", image: { url: "https://covers.openlibrary.org/b/id/10308492-L.jpg" } },
+  { title: "The Paris Apartment", author: "Lucy Foley", image: { url: "https://covers.openlibrary.org/b/id/12803861-L.jpg" } },
+  { title: "Big Little Lies", author: "Liane Moriarty", image: { url: "https://covers.openlibrary.org/b/id/8406789-L.jpg" } },
+  { title: "The Last Thing He Told Me", author: "Laura Dave", image: { url: "https://covers.openlibrary.org/b/id/12349036-L.jpg" } },
+  { title: "The Wife Between Us", author: "Greer Hendricks", image: { url: "https://covers.openlibrary.org/b/id/8750251-L.jpg" } },
+  { title: "Before I Go to Sleep", author: "S.J. Watson", image: { url: "https://covers.openlibrary.org/b/id/7264616-L.jpg" } },
+  { title: "The Woman in the Window", author: "A.J. Finn", image: { url: "https://covers.openlibrary.org/b/id/8750250-L.jpg" } },
+  { title: "The Chain", author: "Adrian McKinty", image: { url: "https://covers.openlibrary.org/b/id/9255722-L.jpg" } },
+  { title: "Verity", author: "Colleen Hoover", image: { url: "https://covers.openlibrary.org/b/id/12992070-L.jpg" } },
+];
+
+module.exports = thrillerCovers;

@@ -1,0 +1,26 @@
+const nonFictionCovers = [
+  { title: "Atomic Habits", author: "James Clear", image: { url: "https://covers.openlibrary.org/b/id/8750243-L.jpg" } },
+  { title: "The Psychology of Money", author: "Morgan Housel", image: { url: "https://covers.openlibrary.org/b/id/10308483-L.jpg" } },
+  { title: "Sapiens", author: "Yuval Noah Harari", image: { url: "https://covers.openlibrary.org/b/id/8228648-L.jpg" } },
+  { title: "Homo Deus", author: "Yuval Noah Harari", image: { url: "https://covers.openlibrary.org/b/id/8750242-L.jpg" } },
+  { title: "Educated", author: "Tara Westover", image: { url: "https://covers.openlibrary.org/b/id/8750241-L.jpg" } },
+  { title: "Can't Hurt Me", author: "David Goggins", image: { url: "https://covers.openlibrary.org/b/id/8750240-L.jpg" } },
+  { title: "The Subtle Art of Not Giving a Fck", author: "Mark Manson", image: { url: "https://covers.openlibrary.org/b/id/8749668-L.jpg" } },
+  { title: "Think Like a Monk", author: "Jay Shetty", image: { url: "https://covers.openlibrary.org/b/id/10308482-L.jpg" } },
+  { title: "Ikigai", author: "Hector Garcia", image: { url: "https://covers.openlibrary.org/b/id/8750239-L.jpg" } },
+  { title: "Deep Work", author: "Cal Newport", image: { url: "https://covers.openlibrary.org/b/id/8749667-L.jpg" } },
+  { title: "Start With Why", author: "Simon Sinek", image: { url: "https://covers.openlibrary.org/b/id/7966783-L.jpg" } },
+  { title: "The Alchemist", author: "Paulo Coelho", image: { url: "https://covers.openlibrary.org/b/id/7264606-L.jpg" } },
+  { title: "Rich Dad Poor Dad", author: "Robert Kiyosaki", image: { url: "https://covers.openlibrary.org/b/id/7264605-L.jpg" } },
+  { title: "The Power of Now", author: "Eckhart Tolle", image: { url: "https://covers.openlibrary.org/b/id/7966782-L.jpg" } },
+  { title: "Grit", author: "Angela Duckworth", image: { url: "https://covers.openlibrary.org/b/id/8749666-L.jpg" } },
+  { title: "Mindset", author: "Carol Dweck", image: { url: "https://covers.openlibrary.org/b/id/8228647-L.jpg" } },
+  { title: "Do Epic Shit", author: "Ankur Warikoo", image: { url: "https://covers.openlibrary.org/b/id/12803858-L.jpg" } },
+  { title: "You Are a Badass", author: "Jen Sincero", image: { url: "https://covers.openlibrary.org/b/id/8749665-L.jpg" } },
+  { title: "The Four Agreements", author: "Don Miguel Ruiz", image: { url: "https://covers.openlibrary.org/b/id/7966781-L.jpg" } },
+  { title: "The Diary of a Young Girl", author: "Anne Frank", image: { url: "https://covers.openlibrary.org/b/id/8406773-L.jpg" } },
+  { title: "Make Your Bed", author: "William H. McRaven", image: { url: "https://covers.openlibrary.org/b/id/8749664-L.jpg" } },
+  { title: "Rework", author: "Jason Fried", image: { url: "https://covers.openlibrary.org/b/id/7264604-L.jpg" } },
+];
+
+module.exports = nonFictionCovers;

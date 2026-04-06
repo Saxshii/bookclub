@@ -1,0 +1,28 @@
+const sciFiCovers = [
+  { title: "Dune", author: "Frank Herbert", image: { url: "https://covers.openlibrary.org/b/id/8228646-L.jpg" } },
+  { title: "Dune Messiah", author: "Frank Herbert", image: { url: "https://covers.openlibrary.org/b/id/8406772-L.jpg" } },
+  { title: "Project Hail Mary", author: "Andy Weir", image: { url: "https://covers.openlibrary.org/b/id/10521088-L.jpg" } },
+  { title: "The Martian", author: "Andy Weir", image: { url: "https://covers.openlibrary.org/b/id/7966780-L.jpg" } },
+  { title: "Ready Player One", author: "Ernest Cline", image: { url: "https://covers.openlibrary.org/b/id/7264603-L.jpg" } },
+  { title: "Ready Player Two", author: "Ernest Cline", image: { url: "https://covers.openlibrary.org/b/id/10308481-L.jpg" } },
+  { title: "The Hunger Games", author: "Suzanne Collins", image: { url: "https://covers.openlibrary.org/b/id/7264602-L.jpg" } },
+  { title: "Catching Fire", author: "Suzanne Collins", image: { url: "https://covers.openlibrary.org/b/id/7264601-L.jpg" } },
+  { title: "Mockingjay", author: "Suzanne Collins", image: { url: "https://covers.openlibrary.org/b/id/7264600-L.jpg" } },
+  { title: "Divergent", author: "Veronica Roth", image: { url: "https://covers.openlibrary.org/b/id/7264599-L.jpg" } },
+  { title: "Insurgent", author: "Veronica Roth", image: { url: "https://covers.openlibrary.org/b/id/7264598-L.jpg" } },
+  { title: "Allegiant", author: "Veronica Roth", image: { url: "https://covers.openlibrary.org/b/id/7264597-L.jpg" } },
+  { title: "Red Rising", author: "Pierce Brown", image: { url: "https://covers.openlibrary.org/b/id/7966779-L.jpg" } },
+  { title: "Golden Son", author: "Pierce Brown", image: { url: "https://covers.openlibrary.org/b/id/8228645-L.jpg" } },
+  { title: "Morning Star", author: "Pierce Brown", image: { url: "https://covers.openlibrary.org/b/id/8749663-L.jpg" } },
+  { title: "Foundation", author: "Isaac Asimov", image: { url: "https://covers.openlibrary.org/b/id/8406771-L.jpg" } },
+  { title: "Ender's Game", author: "Orson Scott Card", image: { url: "https://covers.openlibrary.org/b/id/8406770-L.jpg" } },
+  { title: "The Atlas Six", author: "Olivie Blake", image: { url: "https://covers.openlibrary.org/b/id/12349032-L.jpg" } },
+  { title: "Scythe", author: "Neal Shusterman", image: { url: "https://covers.openlibrary.org/b/id/8750238-L.jpg" } },
+  { title: "Recursion", author: "Blake Crouch", image: { url: "https://covers.openlibrary.org/b/id/9255720-L.jpg" } },
+  { title: "Dark Matter", author: "Blake Crouch", image: { url: "https://covers.openlibrary.org/b/id/8749662-L.jpg" } },
+  { title: "1984", author: "George Orwell", image: { url: "https://covers.openlibrary.org/b/id/8406769-L.jpg" } },
+  { title: "Brave New World", author: "Aldous Huxley", image: { url: "https://covers.openlibrary.org/b/id/8228644-L.jpg" } },
+  { title: "Neuromancer", author: "William Gibson", image: { url: "https://covers.openlibrary.org/b/id/8406768-L.jpg" } },
+];
+
+module.exports = sciFiCovers;

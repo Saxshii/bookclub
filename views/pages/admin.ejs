@@ -1,0 +1,131 @@
+
+<section class="bg-[#faf7f2] min-h-screen py-12 px-4">
+  <div class="max-w-6xl mx-auto">
+
+    <%# ── Header ── %>
+    <div class="flex items-center justify-between mb-10">
+      <div>
+        <h1 class="font-serif text-3xl font-bold text-[#3d1f08]">Admin Dashboard</h1>
+        <p class="text-[13px] text-[#a8845a] mt-1">
+          Welcome back, Sakshi — here's what's happening on BookClub
+        </p>
+      </div>
+      <span class="bg-[#3d1f08] text-[#f0e6d3] text-[11px] px-4 py-1.5 rounded-full tracking-wider">
+        Admin
+      </span>
+    </div>
+
+    <%# ── Stat cards ── %>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+
+      <div class="bg-white border border-[#e8d5b7] rounded-xl p-5">
+        <p class="text-[11px] uppercase tracking-[1px] text-[#a8845a] mb-2">Total Users</p>
+        <p class="font-serif text-3xl font-bold text-[#3d1f08]"><%= totalUsers.toLocaleString() %></p>
+        <p class="text-[11px] text-green-700 mt-1">+<%= newUsersThisWeek %> this week</p>
+      </div>
+
+      <div class="bg-white border border-[#e8d5b7] rounded-xl p-5">
+        <p class="text-[11px] uppercase tracking-[1px] text-[#a8845a] mb-2">Communities</p>
+        <p class="font-serif text-3xl font-bold text-[#3d1f08]"><%= totalCommunities %></p>
+        <p class="text-[11px] text-[#a8845a] mt-1">across all genres</p>
+      </div>
+
+      <div class="bg-white border border-[#e8d5b7] rounded-xl p-5">
+        <p class="text-[11px] uppercase tracking-[1px] text-[#a8845a] mb-2">New This Week</p>
+        <p class="font-serif text-3xl font-bold text-[#3d1f08]"><%= newUsersThisWeek %></p>
+        <p class="text-[11px] text-green-700 mt-1">new signups</p>
+      </div>
+
+      <div class="bg-white border border-[#e8d5b7] rounded-xl p-5">
+        <p class="text-[11px] uppercase tracking-[1px] text-[#a8845a] mb-2">Flagged</p>
+        <p class="font-serif text-3xl font-bold text-[#3d1f08]">
+          <%= communities.filter(c => c.isFlagged).length %>
+        </p>
+        <p class="text-[11px] text-red-600 mt-1">needs review</p>
+      </div>
+
+    </div>
+
+    <%# ── Two column: communities + recent users ── %>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+
+      <%# Communities table %>
+      <div class="bg-white border border-[#e8d5b7] rounded-xl p-6">
+        <h2 class="text-[11px] uppercase tracking-[1px] text-[#a8845a] font-semibold mb-5">
+          Communities overview
+        </h2>
+        <table class="w-full text-[13px]">
+          <thead>
+            <tr class="border-b border-[#e8d5b7]">
+              <th class="text-left pb-3 text-[11px] uppercase tracking-[0.5px] text-[#a8845a] font-medium">Name</th>
+              <th class="text-left pb-3 text-[11px] uppercase tracking-[0.5px] text-[#a8845a] font-medium">Genre</th>
+              <th class="text-left pb-3 text-[11px] uppercase tracking-[0.5px] text-[#a8845a] font-medium">Members</th>
+              <th class="text-left pb-3 text-[11px] uppercase tracking-[0.5px] text-[#a8845a] font-medium">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% communities.forEach(c => { %>
+            <tr class="border-b border-[#f0e6d3] last:border-0">
+              <td class="py-3 text-[#3d1f08] font-medium"><%= c.name %></td>
+              <td class="py-3">
+                <span class="bg-[#f0e6d3] text-[#7a4a28] text-[10px] px-3 py-1 rounded-full">
+                  <%= c.genre %>
+                </span>
+              </td>
+              <td class="py-3 text-[#3d1f08]"><%= c.members?.toLocaleString() || 0 %></td>
+              <td class="py-3">
+                <% if (c.isFlagged) { %>
+                  <span class="bg-red-50 text-red-700 text-[10px] px-3 py-1 rounded-full">Flagged</span>
+                <% } else { %>
+                  <span class="bg-green-50 text-green-700 text-[10px] px-3 py-1 rounded-full">Active</span>
+                <% } %>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      <%# Recent users %>
+      <div class="bg-white border border-[#e8d5b7] rounded-xl p-6">
+        <h2 class="text-[11px] uppercase tracking-[1px] text-[#a8845a] font-semibold mb-5">
+          Recent users
+        </h2>
+        <div class="flex flex-col">
+          <% recentUsers.forEach(u => { %>
+          <div class="flex items-center gap-3 py-3 border-b border-[#f0e6d3] last:border-0">
+            <img src="<%= u.getAvatar ? u.getAvatar() : `https://ui-avatars.com/api/?name=${encodeURIComponent(u.name)}&background=c9a96e&color=fff&bold=true&size=64` %>"
+                 alt="<%= u.name %>"
+                 class="w-9 h-9 rounded-full object-cover flex-shrink-0" />
+            <div class="flex-1 min-w-0">
+              <p class="text-[13px] font-medium text-[#3d1f08] truncate"><%= u.name %></p>
+              <p class="text-[11px] text-[#a8845a] truncate"><%= u.email %></p>
+            </div>
+            <p class="text-[11px] text-[#a8845a] flex-shrink-0">
+              <%= new Date(u.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) %>
+            </p>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+
+    </div>
+
+    <%# ── Vision / roadmap strip ── %>
+    <div class="bg-[#3d1f08] rounded-xl px-8 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+      <div>
+        <p class="text-[11px] uppercase tracking-[1.5px] text-[#c9a87c] mb-2">Your roadmap</p>
+        <p class="text-[14px] text-[#f0e6d3] leading-relaxed max-w-lg">
+          Features you're building — they'll show up across the dashboard once live.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <span class="bg-[#5a3318] text-[#c9a87c] text-[11px] px-3 py-1.5 rounded-full">Public shelves</span>
+        <span class="bg-[#5a3318] text-[#c9a87c] text-[11px] px-3 py-1.5 rounded-full">Private shelves</span>
+        <span class="bg-[#5a3318] text-[#c9a87c] text-[11px] px-3 py-1.5 rounded-full">Reading lists</span>
+        <span class="bg-[#5a3318] text-[#c9a87c] text-[11px] px-3 py-1.5 rounded-full">Community reports</span>
+      </div>
+    </div>
+
+  </div>
+</section>

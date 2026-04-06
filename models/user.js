@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    default: '' 
+    default: ''
   },
   bio: {
     type: String,
@@ -38,6 +38,10 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Community'
   }],
+  isAdmin: {
+    type: Boolean,
+    default: false
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -46,7 +50,6 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.pre('save', async function () {
   if (!this.isModified('password')) return;
-
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });

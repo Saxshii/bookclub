@@ -1,53 +1,84 @@
-<footer class="bg-amber-900 text-amber-100 mt-20">
-  <div class="max-w-7xl mx-auto px-4 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+<footer class="bg-[#3d1f08] text-[#c9a87c] mt-20">
+  <div class="max-w-7xl mx-auto px-6 pt-14 pb-0">
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12">
 
       <!-- Brand -->
-      <div>
-        <div class="flex items-center gap-2 mb-3">
-          <span class="text-2xl">📚</span>
-          <span class="font-serif text-2xl font-bold text-white">BookClub</span>
-        </div>
-        <p class="text-amber-300 text-sm leading-relaxed">
-          Your cozy virtual library. Explore genres, build your shelf,
-          and connect with fellow readers.
+      <div class="md:col-span-1">
+        <h2 class="font-serif text-[22px] font-bold text-[#f5e6d0] mb-3">BookClub</h2>
+        <p class="text-sm leading-relaxed text-[#a8845a] mb-6 max-w-[260px]">
+          Your cozy virtual library. Explore genres, discover your next favourite read,
+          and connect with a community of passionate readers.
         </p>
+        <div class="flex gap-6">
+          <div class="text-center">
+            <p class="text-lg font-bold text-[#f5e6d0]">12K+</p>
+            <p class="text-[11px] uppercase tracking-widest text-[#a8845a] mt-0.5">Readers</p>
+          </div>
+          <div class="text-center">
+            <p class="text-lg font-bold text-[#f5e6d0]">300+</p>
+            <p class="text-[11px] uppercase tracking-widest text-[#a8845a] mt-0.5">Communities</p>
+          </div>
+          <div class="text-center">
+            <p class="text-lg font-bold text-[#f5e6d0]">1M+</p>
+            <p class="text-[11px] uppercase tracking-widest text-[#a8845a] mt-0.5">Books</p>
+          </div>
+        </div>
       </div>
 
-      <!-- Quick Links -->
+      <!-- Explore -->
       <div>
-        <h4 class="font-serif font-semibold text-white mb-3">Explore</h4>
-        <div class="flex flex-col gap-2 text-sm">
-          <a href="/"            class="text-amber-300 hover:text-white transition-colors">Home</a>
-          <a href="/explore"     class="text-amber-300 hover:text-white transition-colors">All Genres</a>
-          <a href="/communities" class="text-amber-300 hover:text-white transition-colors">Communities</a>
-          <% if (currentUser) { %>
-            <a href="/books/bookshelf" class="text-amber-300 hover:text-white transition-colors">My Bookshelf</a>
-          <% } else { %>
-            <a href="/auth/signup" class="text-amber-300 hover:text-white transition-colors">Join BookClub</a>
-          <% } %>
+        <h4 class="text-[11px] font-bold uppercase tracking-[1.2px] text-[#a8845a] mb-4">Explore</h4>
+        <div class="flex flex-col gap-2.5 text-sm">
+          <a href="/"            class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Home</a>
+          <a href="/explore"     class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">All Genres</a>
+          <a href="/communities" class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Communities</a>
+          <a href="/books/bookshelf" class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">My Bookshelf</a>
+          <a href="/auth/signup" class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Join BookClub</a>
+          <a href="/developer" class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Meet the Developer</a>
         </div>
       </div>
 
       <!-- Genres -->
       <div>
-        <h4 class="font-serif font-semibold text-white mb-3">Genres</h4>
-        <div class="grid grid-cols-2 gap-1 text-sm">
-          <a href="/genre/fantasy"     class="text-amber-300 hover:text-white transition-colors">🐉 Fantasy</a>
-          <a href="/genre/romance"     class="text-amber-300 hover:text-white transition-colors">💕 Romance</a>
-          <a href="/genre/thriller"    class="text-amber-300 hover:text-white transition-colors">🔪 Thriller</a>
-          <a href="/genre/mystery"     class="text-amber-300 hover:text-white transition-colors">🔍 Mystery</a>
-          <a href="/genre/sci-fi"      class="text-amber-300 hover:text-white transition-colors">🚀 Sci-Fi</a>
-          <a href="/genre/horror"      class="text-amber-300 hover:text-white transition-colors">👻 Horror</a>
+        <h4 class="text-[11px] font-bold uppercase tracking-[1.2px] text-[#a8845a] mb-4">Genres</h4>
+        <div class="flex flex-col gap-2.5 text-sm">
+          <a href="/genre/fantasy"     class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Fantasy</a>
+          <a href="/genre/romance"     class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Romance</a>
+          <a href="/genre/thriller"    class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Thriller</a>
+          <a href="/genre/mystery"     class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Mystery</a>
+          <a href="/genre/sci-fi"      class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Sci-Fi</a>
+          <a href="/genre/horror"      class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Horror</a>
+          <a href="/genre/historical"  class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Historical</a>
+          <a href="/genre/non-fiction" class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Non-Fiction</a>
         </div>
+      </div>
+
+      <!-- Account + Support -->
+      <div>
+        <h4 class="text-[11px] font-bold uppercase tracking-[1.2px] text-[#a8845a] mb-4">Account</h4>
+        <div class="flex flex-col gap-2.5 text-sm mb-7">
+          <a href="/auth/login"      class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Sign In</a>
+          <a href="/auth/signup"     class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Create Account</a>
+          <a href="/profile"         class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">My Profile</a>
+          <a href="/books/bookshelf" class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Reading List</a>
+        </div>
+        <!-- <h4 class="text-[11px] font-bold uppercase tracking-[1.2px] text-[#a8845a] mb-4">Support</h4>
+        <div class="flex flex-col gap-2.5 text-sm">
+          <a href="/about"   class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">About</a>
+          <a href="/contact" class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">Contact Us</a>
+          <a href="/faq"     class="text-[#c9a87c] hover:text-[#f5e6d0] transition-colors">FAQ</a>
+        </div> -->
       </div>
     </div>
 
     <!-- Bottom bar -->
-    <div class="border-t border-amber-800 pt-6 flex flex-col md:flex-row
-                items-center justify-between gap-2 text-sm text-amber-400">
-      <p>© 2025 BookClub. All rights reserved.</p>
-      <p>Made with <span class="text-red-400">♥</span> by Sakshi</p>
+    <div class="border-t border-[#5a3318] py-5 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-[#7a5a3a]">
+      <p>© 2026 BookClub. Developed by Sakshi.</p>
+      <div class="flex gap-5">
+        <a href="/privacy" class="hover:text-[#c9a87c] transition-colors">Privacy Policy</a>
+        <a href="/terms"   class="hover:text-[#c9a87c] transition-colors">Terms of Use</a>
+      </div>
     </div>
   </div>
 </footer>
