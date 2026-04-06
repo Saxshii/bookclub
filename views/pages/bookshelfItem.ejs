@@ -1,0 +1,29 @@
+<div class="group relative cursor-pointer flex-shrink-0"
+     onclick="openBookModal('<%= book._id %>', '<%= book.title.replace(/'/g, "\\'") %>', '<%= (book.author || "Unknown").replace(/'/g, "\\'") %>', '<%= book.coverId || "" %>', '<%= book.coverUrl || "" %>', '<%= book.readingStatus %>', '<%= (book.notes || "").replace(/'/g, "\\'").replace(/\n/g, "\\n") %>', '<%= (book.review || "").replace(/'/g, "\\'") %>', '<%= book.rating || "" %>')">
+
+  <!-- Book cover display -->
+  <div class="relative overflow-hidden rounded shadow-md group-hover:shadow-xl
+              transition-all duration-300 group-hover:-translate-y-2"
+       style="width: 80px; height: 120px;">
+    <img
+      src="<%= book.coverId ? `https://covers.openlibrary.org/b/id/${book.coverId}-M.jpg` : (book.coverUrl || '/images/fallback-cover.jpg') %>"
+      alt="<%= book.title %>"
+      class="w-full h-full object-cover"
+      onerror="this.src='/images/fallback-cover.jpg'"
+    />
+
+    <!-- Status indicator dot -->
+    <div class="absolute top-1 right-1 w-2.5 h-2.5 rounded-full border border-white
+      <%= book.readingStatus === 'finished' ? 'bg-green-400' :
+          book.readingStatus === 'currently-reading' ? 'bg-amber-400' : 'bg-gray-300' %>">
+    </div>
+  </div>
+
+  <!-- Tooltip -->
+  <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1
+              bg-amber-900 text-white text-xs rounded-lg whitespace-nowrap
+              opacity-0 group-hover:opacity-100 transition-opacity duration-200
+              pointer-events-none z-10">
+    <%= book.title.length > 20 ? book.title.substring(0,20) + '...' : book.title %>
+  </div>
+</div>

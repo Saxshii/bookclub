@@ -74,13 +74,13 @@ router.post('/signup', isGuest, async (req, res) => {
     });
 
   } catch (err) {
-    console.error('Signup error:', err);
-    res.render('pages/signup', {
-      title: 'Join BookClub',
-      errors: ['Something went wrong. Please try again.'],
-      formData: { name, email }
-    });
-  }
+  console.error('Signup error FULL:', err); // already there
+  res.render('pages/signup', {
+    title: 'Join BookClub',
+    errors: [err.message], // ← change this line, show real error
+    formData: { name, email }
+  });
+}
 });
 
 

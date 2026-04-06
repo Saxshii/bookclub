@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/css/output.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        body {
+            background-image: url('/images/library-bg.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        /* Lighten the shelf wall so it still looks clean over the bg */
+        .shelf-wall {
+            background: linear-gradient(180deg,
+                    rgba(250, 240, 220, 0.92) 0%,
+                    rgba(245, 230, 200, 0.92) 100%);
+            backdrop-filter: blur(2px);
+        }
+
+        .shelf-board {
+            background: linear-gradient(180deg, #8B5E3C 0%, #6B3F1F 40%, #5C3317 100%);
+            box-shadow: 0 6px 20px rgba(92, 51, 23, 0.5), inset 0 2px 4px rgba(255, 200, 100, 0.15);
+        }
+
+        .shelf-wall {
+            background: linear-gradient(180deg, #faf0dc 0%, #f5e6c8 100%);
+        }
+
+        .book-spine {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .search-result-item {
+            animation: slideIn 0.2s ease forwards;
+        }
+
+        /* Modal backdrop */
+        .modal-backdrop {
+            background: rgba(44, 24, 16, 0.7);
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+
+<body class="bg-cream min-h-screen">
+
+    <%- include('../partials/navbar') %>
+
+        <div class="pt-24 pb-16 px-4">
+            <div class="max-w-7xl mx-auto">
+
+                <!-- Page header + search -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
+                    <div>
+                        <h1 class="font-serif text-4xl font-bold text-amber-900">My Bookshelf</h1>
+                        <p class="text-amber-600 mt-1">
+                            <%= totalBooks %> book<%= totalBooks !==1 ? 's' : '' %> on your shelf
+                        </p>
+                    </div>
+
+                    <!-- Search bar -->
+                    <div class="relative w-full md:w-96">
+                        <input type="text" id="book-search" placeholder="Search any book to add..."
+                            class="form-input pl-10 pr-4" autocomplete="off" />
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-amber-400">🔍</span>
+
+                        <!-- Search results dropdown -->
+                        <div id="search-results" class="absolute top-full left-0 right-0 bg-white border border-amber-100
+                      rounded-2xl shadow-warm-lg z-50 mt-1 max-h-80 overflow-y-auto hidden">
+                            <div id="search-loading" class="p-4 text-center text-amber-500 text-sm hidden">
+                                Searching...
+                            </div>
+                            <div id="search-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Bookshelf Visual ─────────────────────────────────────────────── -->
+
+                <!-- Currently Reading shelf -->
+                <% if (grouped['currently-reading'].length> 0) { %>
+                    <div class="mb-10">
+                        <h2 class="font-serif text-xl font-semibold text-amber-800 mb-3 flex items-center gap-2">
+                            <span>📖</span> Currently Reading
+                        </h2>
+                        <div class="shelf-wall rounded-t-lg p-4 min-h-[160px]">
+                            <div class="flex flex-wrap gap-3">
+                                <% grouped['currently-reading'].forEach(book=> { %>
+                                    <%- include('./bookshelfItem', { book }) %>
+                                        <% }) %>
+                            </div>
+                        </div>
+                        <div class="shelf-board h-5 rounded-b-sm"></div>
+                    </div>
+                    <% } %>
+
+                        <!-- Want to Read shelf -->
+                        <div class="mb-10">
+                            <h2 class="font-serif text-xl font-semibold text-amber-800 mb-3 flex items-center gap-2">
+                                <span>🔖</span> Want to Read
+                                <span class="text-sm font-normal text-amber-500">
+                                    (<%= grouped['want-to-read'].length %>)
+                                </span>
+                            </h2>
+                            <div class="shelf-wall rounded-t-lg p-4 min-h-[160px]">
+                                <% if (grouped['want-to-read'].length===0) { %>
+                                    <div class="flex items-center justify-center h-full min-h-[120px]">
+                                        <p class="text-amber-400 text-sm italic">
+                                            Search for books above to add them here
+                                        </p>
+                                    </div>
+                                    <% } else { %>
+                                        <div class="flex flex-wrap gap-3">
+                                            <% grouped['want-to-read'].forEach(book=> { %>
+                                                <%- include('./bookshelfItem', { book }) %>
+                                                    <% }) %>
+                                        </div>
+                                        <% } %>
+                            </div>
+                            <div class="shelf-board h-5 rounded-b-sm"></div>
+                        </div>
+
+                        <!-- Finished shelf -->
+                        <% if (grouped['finished'].length> 0) { %>
+                            <div class="mb-10">
+                                <h2
+                                    class="font-serif text-xl font-semibold text-amber-800 mb-3 flex items-center gap-2">
+                                    <span>✅</span> Finished
+                                    <span class="text-sm font-normal text-amber-500">
+                                        (<%= grouped['finished'].length %>)
+                                    </span>
+                                </h2>
+                                <div class="shelf-wall rounded-t-lg p-4 min-h-[160px]">
+                                    <div class="flex flex-wrap gap-3">
+                                        <% grouped['finished'].forEach(book=> { %>
+                                            <%- include('./bookshelfItem', { book }) %>
+                                                <% }) %>
+                                    </div>
+                                </div>
+                                <div class="shelf-board h-5 rounded-b-sm"></div>
+                            </div>
+                            <% } %>
+
+            </div>
+        </div>
+
+        <!-- ── Book Detail Modal ─────────────────────────────────────────────────── -->
+        <div id="book-modal" class="fixed inset-0 modal-backdrop z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh]
+                overflow-y-auto animate-fade-up">
+                <div id="modal-content"></div>
+            </div>
+        </div>
+
+        <%- include('../partials/footer') %>
+
+            <script src="/js/bookshelf.js"></script>
+</body>
+
+</html>
