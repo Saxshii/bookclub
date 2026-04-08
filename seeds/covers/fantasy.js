@@ -90,10 +90,10 @@ const fantasyCovers = [
     }
   },
   {
-    title: "Throne of Glass",
+    title: " Court of Frost and Starlight",
     author: "Sarah J. Maas",
     image: {
-      url: "https://covers.openlibrary.org/b/id/13312488-M.jpg"
+      url: "https://covers.openlibrary.org/b/id/15187319-M.jpg"
     }
   },
   {

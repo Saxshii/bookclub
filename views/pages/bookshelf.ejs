@@ -1,700 +1,693 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title><%= title %></title>
-  <link rel="stylesheet" href="/css/output.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="/css/output.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+    rel="stylesheet" />
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
+      min-height: 100vh;
       background-image: url('/images/shelf.jpg');
       background-size: cover;
       background-attachment: fixed;
       background-position: center;
-      min-height: 100vh;
+      font-family: 'Lato', sans-serif;
+      overflow-x: hidden;
     }
 
     .page-overlay {
-      background: rgba(15, 8, 3, 0.55);
       min-height: 100vh;
+      background: rgba(8, 4, 1, 0.42);
     }
 
-    /* ── Page header ── */
+    /* ── Header ── */
     .shelf-header {
       text-align: center;
-      padding: 100px 24px 40px;
-    }
-    .shelf-header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 5vw, 3.5rem);
-      font-weight: 700;
-      color: #f5e6d0;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.6);
-      margin-bottom: 6px;
-    }
-    .shelf-header p {
-      color: rgba(245,230,208,0.55);
-      font-size: 14px;
-      letter-spacing: 0.05em;
+      padding: 88px 24px 28px;
     }
 
-    /* ── Search bar ── */
-    .search-wrap {
-      max-width: 420px;
-      margin: 0 auto 50px;
-      padding: 0 20px;
+    .shelf-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      color: #f5e6d0;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+      margin-bottom: 5px;
+    }
+
+    #book-count-display {
+      color: rgba(245, 220, 180, 0.45);
+      font-size: 13px;
+      letter-spacing: .06em;
+    }
+
+    /* ── Search ── */
+    .search-area {
+      max-width: 380px;
+      margin: 0 0 36px auto;
+      padding: 0 80px 0 20px;
+      position: relative;
+      z-index: 50;
+      margin-top: -10px;
+    }
+
+    .search-input-wrap {
       position: relative;
     }
-    .search-wrap input {
+
+    .search-area input {
       width: 100%;
-      padding: 12px 44px 12px 18px;
-      background: rgba(255,255,255,0.1);
+      padding: 11px 42px 11px 18px;
+      background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(245,220,180,0.25);
+      border: 1px solid rgba(245, 220, 180, 0.22);
       border-radius: 9999px;
       color: #f5e6d0;
       font-size: 14px;
       outline: none;
-      transition: all 0.3s;
+      transition: all .3s;
       font-family: 'Lato', sans-serif;
     }
-    .search-wrap input::placeholder { color: rgba(245,220,180,0.4); }
-    .search-wrap input:focus {
-      background: rgba(255,255,255,0.15);
-      border-color: rgba(201,169,110,0.5);
+
+    .search-area input::placeholder {
+      color: rgba(245, 220, 180, 0.38);
     }
-    .search-icon {
+
+    .search-area input:focus {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(201, 169, 110, 0.5);
+    }
+
+    .s-icon {
       position: absolute;
-      right: 36px;
+      right: 16px;
       top: 50%;
       transform: translateY(-50%);
-      color: rgba(201,169,110,0.6);
+      color: rgba(201, 169, 110, 0.55);
+      font-size: 14px;
       pointer-events: none;
     }
-    .search-dropdown {
+
+    #search-dropdown {
       display: none;
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 20px;
-      right: 20px;
-      background: rgba(20,10,4,0.96);
+      background: rgba(12, 6, 2, 0.97);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(201,169,110,0.2);
-      border-radius: 16px;
-      z-index: 100;
-      max-height: 300px;
+      border: 1px solid rgba(201, 169, 110, 0.18);
+      border-radius: 0 0 14px 14px;
+      max-height: 270px;
       overflow-y: auto;
     }
 
-    /* ── Room / almirahs wrapper ── */
-    .room {
+    .search-result-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 13px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      transition: background .15s;
+    }
+
+    .search-result-row:hover {
+      background: rgba(201, 169, 110, 0.07);
+    }
+
+    .search-result-row img {
+      width: 30px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: 3px;
+      flex-shrink: 0;
+      background: #2c1810;
+    }
+
+    .search-result-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .search-result-info p:first-child {
+      color: rgba(245, 220, 180, 0.88);
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .search-result-info p:last-child {
+      color: rgba(245, 220, 180, 0.38);
+      font-size: 11px;
+      margin-top: 1px;
+    }
+
+    .add-search-btn {
+      flex-shrink: 0;
+      background: #c9a96e;
+      color: #1a0a00;
+      border: none;
+      padding: 5px 11px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .2s;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .add-search-btn:hover {
+      background: #e8c87a;
+    }
+
+    .add-search-btn.added {
+      background: #4ade80;
+      color: #052e16;
+    }
+
+    .add-search-btn:disabled {
+      opacity: .6;
+      cursor: default;
+    }
+
+    .done-btn-wrap {
+      display: none;
+      justify-content: center;
+      margin-top: 9px;
+    }
+
+    .done-btn {
+      background: rgba(201, 169, 110, 0.12);
+      border: 1px solid rgba(201, 169, 110, 0.38);
+      color: #c9a96e;
+      padding: 6px 22px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Lato', sans-serif;
+      transition: all .2s;
+    }
+
+    .done-btn:hover {
+      background: rgba(201, 169, 110, 0.22);
+    }
+
+    /* ══════════════════════════════════════════
+       3D CAROUSEL
+    ══════════════════════════════════════════ */
+    .carousel-scene {
+      width: 100%;
+      perspective: 2200px;
+      perspective-origin: 50% 40%;
+      padding: 10px 0 50px;
+      position: relative;
+    }
+
+    .carousel-track {
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      gap: 40px;
-      padding: 0 40px 60px;
-      flex-wrap: wrap;
-      perspective: 1400px;
+      align-items: center;
+      /* No gap — depth illusion handles spacing */
+      gap: 0;
+      position: relative;
+      height: 600px;
+      /* fixed height so almirahs overlap correctly */
     }
 
-    /* ── Single almirah ── */
+    /* ── Almirah ── */
     .almirah {
-      width: 560px;
-      background: linear-gradient(160deg, #c8924a 0%, #a06828 30%, #8b5a20 60%, #7a4e1a 100%);
-      border-radius: 12px 12px 6px 6px;
-      padding: 16px 14px 14px;
-      box-shadow:
-        6px 6px 0px #5a3410,
-        12px 12px 20px rgba(0,0,0,0.6),
-        inset 0 1px 0 rgba(255,200,100,0.2),
-        inset -3px 0 8px rgba(0,0,0,0.3);
-      transform: perspective(900px) rotateY(var(--tilt, 0deg));
-      transition: transform 0.4s ease;
-      position: relative;
-    }
-    .almirah:hover {
-      transform: perspective(900px) rotateY(0deg) scale(1.01);
-    }
-    .almirah-left  { --tilt: 3deg; }
-    .almirah-right { --tilt: -3deg; }
-
-    /* Wood grain top bar */
-    .almirah-top {
-      height: 22px;
-      background: linear-gradient(90deg,
-        #d4a050 0%, #c08030 20%, #b07020 40%,
-        #c08030 60%, #d4a050 80%, #c08030 100%);
-      border-radius: 8px 8px 0 0;
-      margin: -16px -14px 14px;
-      box-shadow: inset 0 -2px 6px rgba(0,0,0,0.3);
-    }
-
-    /* ── Single shelf row ── */
-    .shelf-row {
-      margin-bottom: 6px;
-      position: relative;
-    }
-
-    /* Shelf back wall */
-    .shelf-back {
-      background: linear-gradient(180deg, #8b6030 0%, #7a5020 100%);
-      border-radius: 4px 4px 0 0;
-      padding: 10px 8px 0;
-      min-height: 130px;
-      display: flex;
-      align-items: flex-end;
-      gap: 3px;
+      position: absolute;
+      width: 660px;
+      height: 600px;
+      border-radius: 8px;
       overflow: hidden;
-      position: relative;
-    }
-    /* Subtle inner shadow on back wall */
-    .shelf-back::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 40%);
-      pointer-events: none;
-    }
-
-    /* The wooden plank */
-    .shelf-plank {
-      height: 18px;
-      background: linear-gradient(180deg,
-        #d4924a 0%, #c07830 30%, #b06820 60%, #c07830 100%);
-      border-radius: 0 0 4px 4px;
-      box-shadow:
-        0 4px 12px rgba(0,0,0,0.5),
-        inset 0 1px 0 rgba(255,200,100,0.3),
-        inset 0 -2px 4px rgba(0,0,0,0.3);
-      position: relative;
-    }
-    /* Plank edge highlight */
-    .shelf-plank::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: rgba(255,200,100,0.25);
-      border-radius: 0 0 0 0;
-    }
-
-    /* Empty shelf message */
-    .shelf-empty {
-      color: rgba(255,200,130,0.25);
-      font-size: 12px;
-      font-style: italic;
-      padding: 30px 10px;
-      text-align: center;
-      width: 100%;
-      align-self: center;
-    }
-
-    /* ── Book on shelf ── */
-    .book-on-shelf {
-      flex-shrink: 0;
-      width: 72px;
-      height: 108px;
-      position: relative;
       cursor: pointer;
-      transition: transform 0.25s ease, filter 0.25s ease;
-      align-self: flex-end;
+      /* All transitions on transform, opacity, filter */
+      transition:
+        transform .6s cubic-bezier(.25, .46, .45, .94),
+        opacity .6s ease,
+        filter .6s ease,
+        z-index 0s .3s;
+      will-change: transform, opacity, filter;
     }
-    .book-on-shelf:hover {
-      transform: translateY(-12px) scale(1.06);
-      filter: brightness(1.1);
+
+    /* CENTER — full focus */
+    .almirah.state-center {
+      transform: perspective(1600px) rotateY(0deg) translateZ(0px) scale(1);
+      opacity: 1;
+      filter: brightness(1) blur(0);
+      z-index: 20;
+      cursor: default;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+    }
+
+    /* LEFT — tilted back, slightly left */
+    .almirah.state-left {
+      transform: perspective(1600px) rotateY(38deg) translateX(-460px) translateZ(-140px) scale(0.82);
+      opacity: 0.72;
+      filter: brightness(0.68) blur(0.4px);
       z-index: 10;
     }
 
-    .book-cover-img {
+    /* RIGHT — tilted back, slightly right */
+    .almirah.state-right {
+      transform: perspective(1600px) rotateY(-38deg) translateX(460px) translateZ(-140px) scale(0.82);
+      opacity: 0.72;
+      filter: brightness(0.68) blur(0.4px);
+      z-index: 10;
+    }
+
+    /* FAR LEFT/RIGHT — mostly hidden */
+    .almirah.state-far-left {
+      transform: perspective(1600px) rotateY(55deg) translateX(-700px) translateZ(-300px) scale(0.65);
+      opacity: 0.2;
+      filter: brightness(0.4) blur(1px);
+      z-index: 5;
+    }
+
+    .almirah.state-far-right {
+      transform: perspective(1600px) rotateY(-55deg) translateX(700px) translateZ(-300px) scale(0.65);
+      opacity: 0.2;
+      filter: brightness(0.4) blur(1px);
+      z-index: 5;
+    }
+
+    .almirah:not(.state-center):hover {
+      filter: brightness(0.8) blur(0px);
+      opacity: 0.88;
+    }
+
+    /* ── Almirah inner — shelf-bg.jpg fills exactly ── */
+    .almirah-inner {
+      width: 100%;
+      height: 100%;
+      background-image: url('/images/shelf-bg.jpg');
+      background-size: 100% 100%;
+      /* stretch to fill perfectly */
+      background-repeat: no-repeat;
+      position: relative;
+    }
+
+    .shelf-rows-wrap {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .shelf-row {
+      position: absolute;
+      left: 3%;
+      right: 3%;
+      display: flex;
+      align-items: flex-end;
+      gap: 0;
+      justify-content: space-evenly;
+      overflow: hidden;
+      pointer-events: all;
+      padding: 0 10px;
+    }
+
+    /* Row positions — tune to your shelf-bg.jpg */
+    .shelf-row:nth-child(1) {
+      top: 1%;
+      height: 26%;
+    }
+
+    .shelf-row:nth-child(2) {
+      top: 25%;
+      height: 26%;
+    }
+
+    .shelf-row:nth-child(3) {
+      top: 49%;
+      height: 26%;
+    }
+
+    .shelf-row:nth-child(4) {
+      top: 73%;
+      height: 25%;
+    }
+
+    /* ── Book (cover only) ── */
+    .book-item {
+      flex-shrink: 0;
+      flex-grow: 0;
+      width: 65px;
+      height: 70%;
+      max-height: 100%;
+      position: relative;
+      cursor: pointer;
+      transition: transform .22s ease;
+      align-self: flex-end;
+    }
+
+    .book-item:hover {
+      transform: translateY(-10px) scale(1.06);
+      z-index: 30;
+    }
+
+    .book-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 3px 6px 6px 3px;
+      border-radius: 2px 5px 5px 2px;
       box-shadow:
-        3px 3px 8px rgba(0,0,0,0.5),
-        inset -2px 0 4px rgba(0,0,0,0.2);
+        2px 2px 8px rgba(0, 0, 0, 0.55),
+        inset -2px 0 3px rgba(0, 0, 0, 0.12);
       display: block;
     }
 
-    /* Spine shadow on left of book */
-    .book-on-shelf::before {
+    /* Spine shadow */
+    .book-item::before {
       content: '';
       position: absolute;
       left: 0;
       top: 0;
       bottom: 0;
-      width: 6px;
-      background: linear-gradient(90deg, rgba(0,0,0,0.4), transparent);
-      border-radius: 3px 0 0 3px;
-      z-index: 1;
+      width: 5px;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.42), transparent);
+      border-radius: 2px 0 0 2px;
+      z-index: 2;
+      pointer-events: none;
     }
 
     /* Status dot */
     .status-dot {
       position: absolute;
-      top: 4px;
-      right: 4px;
-      width: 8px;
-      height: 8px;
+      top: 3px;
+      right: 3px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      border: 1.5px solid rgba(255,255,255,0.8);
+      border: 1.5px solid rgba(255, 255, 255, 0.65);
       z-index: 5;
     }
-    .dot-reading  { background: #f59e0b; }
-    .dot-finished { background: #22c55e; }
-    .dot-want     { background: rgba(255,255,255,0.4); }
+
+    .dot-reading {
+      background: #f59e0b;
+    }
+
+    .dot-finished {
+      background: #22c55e;
+    }
+
+    .dot-want {
+      background: rgba(200, 200, 200, 0.3);
+    }
 
     /* Fallback cover */
     .book-fallback {
       width: 100%;
       height: 100%;
       background: linear-gradient(160deg, #3d1f0a, #6b3a1f);
-      border-radius: 3px 6px 6px 3px;
+      border-radius: 2px 5px 5px 2px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 6px;
-      box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+      padding: 4px;
+      text-align: center;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.55);
     }
+
+    .book-fallback span {
+      font-size: 14px;
+    }
+
     .book-fallback p {
+      font-size: 7px;
+      color: rgba(245, 220, 180, 0.7);
+      margin-top: 3px;
+      line-height: 1.2;
       font-family: 'Playfair Display', serif;
-      font-size: 9px;
-      color: rgba(245,220,180,0.85);
-      text-align: center;
-      line-height: 1.3;
-      margin-top: 4px;
+      overflow: hidden;
+      max-height: 40px;
     }
 
-    /* ── Bottom of almirah ── */
-    .almirah-base {
-      height: 16px;
-      background: linear-gradient(90deg, #6b3a10, #8b5020, #6b3a10);
-      border-radius: 0 0 8px 8px;
-      margin: 4px -14px -14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    /* ── Nav arrows ── */
+    .nav-arrow {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(15, 7, 3, 0.55);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(201, 169, 110, 0.22);
+      color: rgba(245, 220, 180, 0.65);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 100;
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* ── Book count badge ── */
-    .almirah-label {
-      text-align: center;
-      margin-top: 16px;
-      font-size: 12px;
-      color: rgba(245,220,180,0.4);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+    .nav-arrow:hover {
+      background: rgba(201, 169, 110, 0.18);
+      border-color: rgba(201, 169, 110, 0.45);
+      color: #f5e6d0;
+    }
+
+    #nav-prev {
+      left: 14px;
+    }
+
+    #nav-next {
+      right: 14px;
+    }
+
+    /* ── Dots ── */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 0 44px;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(245, 220, 180, 0.18);
+      border: 1px solid rgba(245, 220, 180, 0.28);
+      cursor: pointer;
+      transition: all .3s;
+    }
+
+    .carousel-dot.active {
+      background: #c9a96e;
+      border-color: #c9a96e;
+      transform: scale(1.3);
     }
 
     /* ── Modal ── */
-    .modal-backdrop {
-      background: rgba(10,5,2,0.8);
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 4, 1, 0.82);
       backdrop-filter: blur(6px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #fffdf8;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 540px;
+      max-height: 88vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     }
 
     /* ── Toast ── */
     #shelf-toast {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: rgba(20,10,4,0.94);
-      border: 1px solid rgba(201,169,110,0.3);
+      bottom: 22px;
+      right: 22px;
+      background: rgba(12, 6, 2, 0.95);
+      border: 1px solid rgba(201, 169, 110, 0.28);
       color: #f0e6d3;
-      padding: 12px 20px;
-      border-radius: 12px;
+      padding: 10px 17px;
+      border-radius: 10px;
       font-size: 13px;
       font-weight: 500;
-      z-index: 999;
+      z-index: 300;
       opacity: 0;
-      transform: translateY(16px);
-      transition: all 0.3s ease;
+      transform: translateY(12px);
+      transition: all .3s ease;
       pointer-events: none;
     }
-    #shelf-toast.show { opacity: 1; transform: translateY(0); }
 
-    /* ── Responsive ── */
-    @media (max-width: 700px) {
-      .room { flex-direction: column; align-items: center; padding: 0 16px 40px; }
-      .almirah { width: 100%; max-width: 420px; --tilt: 0deg !important; }
-      .book-on-shelf { width: 58px; height: 88px; }
+    #shelf-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mobile */
+    @media(max-width:720px) {
+      .carousel-track {
+        height: 480px;
+      }
+
+      .almirah {
+        width: calc(100vw - 40px);
+        height: 420px;
+      }
+
+      .almirah.state-left {
+        transform: perspective(800px) rotateY(28deg) translateX(-50vw) translateZ(-80px) scale(0.8);
+      }
+
+      .almirah.state-right {
+        transform: perspective(800px) rotateY(-28deg) translateX(50vw) translateZ(-80px) scale(0.8);
+      }
     }
   </style>
 </head>
+
 <body>
 
-<%- include('../partials/navbar') %>
+  <%- include('../partials/navbar') %>
 
-<div class="page-overlay">
+    <div class="page-overlay">
 
-  <!-- Header -->
-  <div class="shelf-header">
-    <h1>My Bookshelf</h1>
-    <p><%= totalBooks %> book<%= totalBooks !== 1 ? 's' : '' %> in your collection</p>
-  </div>
+      <!-- Header -->
+      <div class="shelf-header">
+        <h1>My Bookshelf</h1>
+        <p id="book-count-display">
+          <%= totalBooks %> book<%= totalBooks !==1 ? 's' : '' %> in your collection
+        </p>
+      </div>
 
-  <!-- Search -->
-  <div class="search-wrap">
-    <input type="text" id="book-search"
-           placeholder="Search any book to add..."
-           autocomplete="off"/>
-    <span class="search-icon">🔍</span>
-    <div class="search-dropdown" id="search-dropdown"></div>
-  </div>
+      <!-- Search -->
+      <div class="search-area">
+        <div class="search-input-wrap">
+          <input type="text" id="book-search" placeholder="Search any book or author..." autocomplete="off" />
+          <span class="s-icon">🔍</span>
+        </div>
+        <div id="search-dropdown"></div>
+        <div class="done-btn-wrap" id="done-btn-wrap">
+          <button class="done-btn" onclick="doneAdding()">✓ Done — update shelf</button>
+        </div>
+      </div>
 
-  <!-- Room with almirahs -->
-  <div class="room">
+      <!-- Nav arrows -->
+      <button class="nav-arrow" id="nav-prev" onclick="navigate(-1)">‹</button>
+      <button class="nav-arrow" id="nav-next" onclick="navigate(1)">›</button>
 
-    <%
-      // Distribute ALL books across shelves — no category separation
-      // Each almirah has 4 shelves, each shelf holds ~7 books (560px wide, 72px books + 3px gap)
-      const BOOKS_PER_SHELF = 7;
-      const SHELVES_PER_ALMIRAH = 4;
-      const BOOKS_PER_ALMIRAH = BOOKS_PER_SHELF * SHELVES_PER_ALMIRAH; // 28
-      const allBooks = bookshelf.books;
+      <!-- Carousel -->
+      <div class="carousel-scene">
+        <div class="carousel-track" id="carousel-track">
 
-      // Split into almirah chunks
-      const almirahs = [];
-      for (let i = 0; i < allBooks.length; i += BOOKS_PER_ALMIRAH) {
-        almirahs.push(allBooks.slice(i, i + BOOKS_PER_ALMIRAH));
-      }
-      // Always show at least 1 almirah
-      if (almirahs.length === 0) almirahs.push([]);
-      // Always show at least 2 almirahs for visual balance
-      if (almirahs.length === 1) almirahs.push([]);
-    %>
+          <% const SHELVES=4; const PER_SHELF=8; const PER_ALMIRAH=SHELVES * PER_SHELF; const allBooks=bookshelf.books
+            || []; const almirahs=[]; const totalAlmirahs=Math.max(2, Math.ceil(allBooks.length / PER_ALMIRAH)); for
+            (let i=0; i < totalAlmirahs; i++) { almirahs.push(allBooks.slice(i * PER_ALMIRAH, (i + 1) * PER_ALMIRAH)); }
+            %>
 
-    <% almirahs.forEach((almBooks, almIdx) => { %>
-      <div class="almirah <%= almIdx % 2 === 0 ? 'almirah-left' : 'almirah-right' %>">
+            <% almirahs.forEach((almBooks, aIdx)=> { %>
+              <% let stateClass='state-far-right' ; if (aIdx===0) stateClass='state-center' ; else if (aIdx===1)
+                stateClass='state-right' ; else if (aIdx===almirahs.length - 1 && almirahs.length> 2)
+                stateClass = 'state-far-right';
+                %>
+                <div class="almirah <%= stateClass %>" data-idx="<%= aIdx %>" onclick="almirahClick(<%= aIdx %>)">
+                  <div class="almirah-inner">
+                    <div class="shelf-rows-wrap">
 
-        <!-- Top wood bar -->
-        <div class="almirah-top"></div>
+                      <% const rows=[]; for (let r=0; r < SHELVES; r++) { rows.push(almBooks.slice(r * PER_SHELF, (r+1)
+                        * PER_SHELF)); } %>
 
-        <%
-          // Split almirah books into shelf rows
-          const rows = [];
-          for (let i = 0; i < SHELVES_PER_ALMIRAH; i++) {
-            rows.push(almBooks.slice(i * BOOKS_PER_SHELF, (i + 1) * BOOKS_PER_SHELF));
-          }
-        %>
+                        <% rows.forEach((rowBooks, rIdx)=> { %>
+                          <div class="shelf-row">
+                            <% rowBooks.forEach(book=> {
+                              const src = book.coverId
+                              ? `https://covers.openlibrary.org/b/id/${book.coverId}-M.jpg`
+                              : (book.coverUrl || '');
+                              const dotCls = book.readingStatus === 'finished' ? 'dot-finished'
+                              : book.readingStatus === 'currently-reading' ? 'dot-reading'
+                              : 'dot-want';
+                              const st = book.title.replace(/'/g,"&apos;").replace(/"/g,"&quot;");
+                              const sa = (book.author||'Unknown').replace(/'/g,"&apos;");
+                              const scu = (book.coverUrl||'').replace(/'/g,"&apos;");
+                              const sn = (book.notes||'').replace(/'/g,"&apos;").replace(/\n/g,"\\n");
+                              const sr = (book.review||'').replace(/'/g,"&apos;");
+                              %>
+                              <div class="book-item"
+                                onclick="openModal('<%= book._id %>','<%= st %>','<%= sa %>','<%= book.coverId||"" %>','<%= scu %>','<%= book.readingStatus %>','<%= sn %>','<%= sr %>','<%= book.rating||"" %>')">
+                                <div class="status-dot <%= dotCls %>"></div>
+                                <% if (src) { %>
+                                  <img src="<%= src %>" alt="<%= book.title %>"
+                                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                                  <div class="book-fallback" style="display:none;">
+                                    <span>📚</span>
+                                    <p>
+                                      <%= book.title.substring(0,18) %>
+                                    </p>
+                                  </div>
+                                  <% } else { %>
+                                    <div class="book-fallback">
+                                      <span>📚</span>
+                                      <p>
+                                        <%= book.title.substring(0,18) %>
+                                      </p>
+                                    </div>
+                                    <% } %>
+                              </div>
+                              <% }) %>
+                          </div>
+                          <% }) %>
 
-        <% rows.forEach((rowBooks, rowIdx) => { %>
-          <div class="shelf-row">
-            <div class="shelf-back">
-              <% if (rowBooks.length === 0) { %>
-                <p class="shelf-empty">— empty shelf —</p>
-              <% } else { %>
-                <% rowBooks.forEach(book => { %>
-                  <div class="book-on-shelf"
-                       onclick="openBookModal(
-                         '<%= book._id %>',
-                         '<%= book.title.replace(/'/g,"&apos;").replace(/"/g,"&quot;") %>',
-                         '<%= (book.author||"Unknown").replace(/'/g,"&apos;") %>',
-                         '<%= book.coverId || "" %>',
-                         '<%= (book.coverUrl||"").replace(/'/g,"&apos;") %>',
-                         '<%= book.readingStatus %>',
-                         '<%= (book.notes||"").replace(/'/g,"&apos;").replace(/\n/g,"\\n") %>',
-                         '<%= (book.review||"").replace(/'/g,"&apos;") %>',
-                         '<%= book.rating || "" %>'
-                       )">
-
-                    <!-- Status dot -->
-                    <div class="status-dot
-                      <%= book.readingStatus === 'finished' ? 'dot-finished' :
-                          book.readingStatus === 'currently-reading' ? 'dot-reading' : 'dot-want' %>">
                     </div>
-
-                    <!-- Cover -->
-                    <% const src = book.coverId
-                         ? `https://covers.openlibrary.org/b/id/${book.coverId}-M.jpg`
-                         : (book.coverUrl || ''); %>
-                    <% if (src) { %>
-                      <img
-                        src="<%= src %>"
-                        alt="<%= book.title %>"
-                        class="book-cover-img"
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                      />
-                      <div class="book-fallback" style="display:none;">
-                        <span style="font-size:18px;">📚</span>
-                        <p><%= book.title.substring(0, 20) %></p>
-                      </div>
-                    <% } else { %>
-                      <div class="book-fallback">
-                        <span style="font-size:18px;">📚</span>
-                        <p><%= book.title.substring(0, 20) %></p>
-                      </div>
-                    <% } %>
                   </div>
+                </div>
                 <% }) %>
-              <% } %>
-            </div>
-            <!-- Wooden plank -->
-            <div class="shelf-plank"></div>
-          </div>
-        <% }) %>
 
-        <!-- Almirah base -->
-        <div class="almirah-base"></div>
-      </div>
-
-      <!-- Label below almirah -->
-      <% if (false) { /* hidden — keeping clean */ } %>
-    <% }) %>
-
-  </div>
-
-  <%- include('../partials/footer') %>
-</div>
-
-<!-- Book Detail Modal -->
-<div id="book-modal"
-     class="fixed inset-0 modal-backdrop z-50 items-center justify-center p-4 hidden"
-     style="display:none;">
-  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-    <div id="modal-content"></div>
-  </div>
-</div>
-
-<div id="shelf-toast"></div>
-
-<script>
-// ── Search ────────────────────────────────────────────────────────────────────
-let searchTimeout;
-const searchInput    = document.getElementById('book-search');
-const searchDropdown = document.getElementById('search-dropdown');
-
-searchInput.addEventListener('input', function () {
-  clearTimeout(searchTimeout);
-  const q = this.value.trim();
-  if (q.length < 2) { searchDropdown.style.display = 'none'; return; }
-
-  searchTimeout = setTimeout(async () => {
-    try {
-      const res  = await fetch(`/books/search?q=${encodeURIComponent(q)}`);
-      const data = await res.json();
-      if (!data.books?.length) {
-        searchDropdown.innerHTML = `<p style="padding:14px;text-align:center;color:rgba(255,200,130,0.4);font-size:13px;">No books found</p>`;
-        searchDropdown.style.display = 'block';
-        return;
-      }
-      searchDropdown.innerHTML = data.books.map(b => `
-        <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;
-                    border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;
-                    transition:background 0.15s;"
-             onmouseover="this.style.background='rgba(201,169,110,0.1)'"
-             onmouseout="this.style.background='transparent'">
-          <img src="${b.coverUrl||'/images/fallback-cover.jpg'}"
-               style="width:32px;height:46px;object-fit:cover;border-radius:3px;flex-shrink:0;"
-               onerror="this.style.display='none'"/>
-          <div style="flex:1;min-width:0;">
-            <p style="color:rgba(245,220,180,0.9);font-size:13px;font-weight:600;
-                      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${b.title}</p>
-            <p style="color:rgba(245,220,180,0.4);font-size:11px;margin-top:1px;">${b.author}</p>
-          </div>
-          <button onclick="addFromSearch(event,this)"
-                  data-id="${b.id}" data-title="${b.title.replace(/"/g,'&quot;')}"
-                  data-author="${b.author}" data-coverurl="${b.coverUrl||''}"
-                  style="flex-shrink:0;background:#c9a96e;color:#1a0a00;border:none;
-                         padding:6px 12px;border-radius:9999px;font-size:11px;
-                         font-weight:700;cursor:pointer;white-space:nowrap;">
-            + Add
-          </button>
         </div>
-      `).join('');
-      searchDropdown.style.display = 'block';
-    } catch(e) { searchDropdown.style.display = 'none'; }
-  }, 400);
-});
-
-document.addEventListener('click', e => {
-  if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
-    searchDropdown.style.display = 'none';
-  }
-});
-
-async function addFromSearch(e, btn) {
-  e.stopPropagation();
-  const data = {
-    openLibraryId: btn.dataset.id,
-    title: btn.dataset.title,
-    author: btn.dataset.author,
-    coverUrl: btn.dataset.coverurl
-  };
-  btn.textContent = '...'; btn.disabled = true;
-  try {
-    const res  = await fetch('/books/add', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    const json = await res.json();
-    showToast(json.message);
-    if (json.success) {
-      btn.textContent = '✓';
-      btn.style.background = '#4ade80';
-      setTimeout(() => location.reload(), 1000);
-    } else {
-      btn.textContent = '+ Add'; btn.disabled = false;
-    }
-  } catch(e) {
-    btn.textContent = '+ Add'; btn.disabled = false;
-    showToast('Failed to add book.');
-  }
-}
-
-// ── Book modal ────────────────────────────────────────────────────────────────
-function openBookModal(id, title, author, coverId, coverUrl, status, notes, review, rating) {
-  const src = coverId
-    ? `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`
-    : (coverUrl || '/images/fallback-cover.jpg');
-
-  const stars = [1,2,3,4,5].map(n =>
-    `<button onclick="setRating(${n})" id="star-${n}"
-             style="font-size:22px;background:none;border:none;cursor:pointer;
-                    color:${Number(rating)>=n?'#f59e0b':'#e5e7eb'};
-                    transition:transform 0.15s;"
-             onmouseover="this.style.transform='scale(1.2)'"
-             onmouseout="this.style.transform='scale(1)'">★</button>`
-  ).join('');
-
-  const statusOpts = [
-    { v:'want-to-read',      l:'🔖 Want to Read' },
-    { v:'currently-reading', l:'📖 Currently Reading' },
-    { v:'finished',          l:'✅ Finished' }
-  ].map(o => `<option value="${o.v}" ${status===o.v?'selected':''}>${o.l}</option>`).join('');
-
-  document.getElementById('modal-content').innerHTML = `
-    <div style="padding:24px;">
-      <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:20px;">
-        <img src="${src}" alt="${title}"
-             style="width:80px;height:120px;object-fit:cover;border-radius:8px;
-                    box-shadow:0 4px 12px rgba(0,0,0,0.2);flex-shrink:0;"
-             onerror="this.src='/images/fallback-cover.jpg'"/>
-        <div style="flex:1;">
-          <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;
-                     font-weight:700;color:#3d1f08;margin-bottom:4px;">${title}</h2>
-          <p style="color:#c9a96e;font-size:14px;margin-bottom:10px;">${author}</p>
-          <div style="display:flex;gap:2px;margin-bottom:12px;">${stars}</div>
-          <select id="modal-status"
-                  onchange="updateStatus(this.value,'${id}')"
-                  style="width:100%;padding:8px 12px;border:1px solid #e8d5b7;
-                         border-radius:10px;font-size:13px;color:#3d1f08;
-                         background:#fff;outline:none;cursor:pointer;">
-            ${statusOpts}
-          </select>
-        </div>
-        <button onclick="closeModal()"
-                style="color:#a8845a;background:none;border:none;font-size:22px;
-                       cursor:pointer;line-height:1;flex-shrink:0;">✕</button>
       </div>
 
-      <div style="margin-bottom:14px;">
-        <label style="display:block;font-size:13px;font-weight:600;color:#7a4a28;
-                       margin-bottom:6px;">📝 My Notes</label>
-        <textarea id="modal-notes" rows="4"
-                  placeholder="Write your thoughts, summaries..."
-                  style="width:100%;padding:12px;border:1px solid #e8d5b7;
-                         border-radius:12px;font-size:13px;color:#3d1f08;
-                         background:#fffdf8;resize:none;outline:none;
-                         font-family:'Lato',sans-serif;">${notes.replace(/\\n/g,'\n')}</textarea>
+      <!-- Dots -->
+      <div class="carousel-dots">
+        <% almirahs.forEach((_, i)=> { %>
+          <div class="carousel-dot <%= i === 0 ? 'active' : '' %>" onclick="goTo(<%= i %>)"></div>
+          <% }) %>
       </div>
 
-      <div style="margin-bottom:20px;">
-        <label style="display:block;font-size:13px;font-weight:600;color:#7a4a28;
-                       margin-bottom:6px;">⭐ My Review</label>
-        <textarea id="modal-review" rows="3"
-                  placeholder="What did you think of this book?"
-                  style="width:100%;padding:12px;border:1px solid #e8d5b7;
-                         border-radius:12px;font-size:13px;color:#3d1f08;
-                         background:#fffdf8;resize:none;outline:none;
-                         font-family:'Lato',sans-serif;">${review}</textarea>
-      </div>
-
-      <div style="display:flex;gap:10px;">
-        <button onclick="saveBookData('${id}')"
-                style="flex:1;background:#8b5a14;color:white;border:none;
-                       padding:12px;border-radius:9999px;font-size:14px;
-                       font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;
-                       transition:background 0.2s;"
-                onmouseover="this.style.background='#a06820'"
-                onmouseout="this.style.background='#8b5a14'">
-          Save Changes
-        </button>
-        <button onclick="removeBook('${id}')"
-                style="padding:12px 20px;border:1px solid #fca5a5;color:#ef4444;
-                       background:none;border-radius:9999px;font-size:13px;
-                       font-weight:600;cursor:pointer;font-family:'Lato',sans-serif;">
-          Remove
-        </button>
-      </div>
-      <p id="modal-save-msg" style="display:none;text-align:center;color:#22c55e;
-                                    font-size:13px;margin-top:10px;">✓ Saved!</p>
+      <%- include('../partials/footer') %>
     </div>
-  `;
 
-  const modal = document.getElementById('book-modal');
-  modal.style.display = 'flex';
-  modal.classList.remove('hidden');
-  window._currentRating = Number(rating) || 0;
-}
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+      <div class="modal-box">
+        <div id="modal-content"></div>
+      </div>
+    </div>
 
-function closeModal() {
-  const modal = document.getElementById('book-modal');
-  modal.style.display = 'none';
-}
+    <div id="shelf-toast"></div>
 
-document.getElementById('book-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-
-function setRating(n) {
-  window._currentRating = n;
-  for (let i = 1; i <= 5; i++) {
-    const s = document.getElementById(`star-${i}`);
-    if (s) s.style.color = i <= n ? '#f59e0b' : '#e5e7eb';
-  }
-}
-
-async function updateStatus(status, bookId) {
-  await fetch(`/books/update/${bookId}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ readingStatus: status })
-  });
-}
-
-async function saveBookData(bookId) {
-  const notes  = document.getElementById('modal-notes').value;
-  const review = document.getElementById('modal-review').value;
-  const status = document.getElementById('modal-status').value;
-  try {
-    const res  = await fetch(`/books/update/${bookId}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ notes, review, rating: window._currentRating, readingStatus: status })
-    });
-    const json = await res.json();
-    if (json.success) {
-      const msg = document.getElementById('modal-save-msg');
-      msg.style.display = 'block';
-      setTimeout(() => { msg.style.display = 'none'; location.reload(); }, 900);
-    }
-  } catch(e) { showToast('Failed to save.'); }
-}
-
-async function removeBook(bookId) {
-  if (!confirm('Remove this book from your shelf?')) return;
-  await fetch(`/books/remove/${bookId}`, { method: 'POST' });
-  closeModal();
-  location.reload();
-}
-
-function showToast(msg) {
-  const t = document.getElementById('shelf-toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
-}
-</script>
+    <script src="/js/bookshelf.js"></script>
 </body>
+
 </html>
