@@ -58,19 +58,17 @@ CommunitySchema.virtual('memberCount').get(function () {
 
 CommunitySchema.methods.getCover = function () {
   if (this.coverImage) return this.coverImage;
-
   const genreImages = {
-    Fantasy:     'https://source.unsplash.com/400x250/?fantasy,magic',
-    Romance:     'https://source.unsplash.com/400x250/?romance,flowers',
-    Thriller:    'https://source.unsplash.com/400x250/?dark,city,night',
-    Mystery:     'https://source.unsplash.com/400x250/?mystery,fog',
-    'Sci-Fi':    'https://source.unsplash.com/400x250/?space,galaxy',
-    Horror:      'https://source.unsplash.com/400x250/?dark,horror,fog',
-    Historical:  'https://source.unsplash.com/400x250/?ancient,history',
-    'Non-Fiction':'https://source.unsplash.com/400x250/?library,books',
-    General:     'https://source.unsplash.com/400x250/?books,reading'
+    'Fantasy':     '/images/communities/fantasy.png',
+    'Romance':     '/images/communities/romance.png',
+    'Thriller':    '/images/communities/thriller.png',
+    'Mystery':     '/images/communities/mystery.png',
+    'Sci-Fi':      '/images/communities/sci-fi.png',
+    'Horror':      '/images/communities/horror.png',
+    'Historical':  '/images/communities/historical.png',
+    'Non-Fiction': '/images/communities/general.png',
+    'General':     '/images/communities/general.png'
   };
-
   return genreImages[this.genre] || genreImages['General'];
 };
 
