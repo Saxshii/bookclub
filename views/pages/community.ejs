@@ -9,148 +9,198 @@
 </head>
 <body class="bg-cream min-h-screen">
 
-  <%- include('../partials/navbar') %>
+<%- include('../partials/navbar') %>
 
-  <!-- Header -->
-  <div class="pt-28 pb-12 px-4 bg-gradient-to-b from-amber-50 to-cream text-center">
-    <p class="text-amber-500 text-xs tracking-widest uppercase mb-2">Find your people</p>
-    <h1 class="font-serif text-5xl font-bold text-amber-900 mb-3">Reading Communities</h1>
-    <p class="text-amber-600 max-w-xl mx-auto">
-      Join groups of readers who share your taste. Discuss books, share recommendations,
-      and read together.
-    </p>
-  </div>
+<!-- Header -->
+<div class="pt-28 pb-10 px-4 text-center"
+     style="background: linear-gradient(180deg, #faf0dc 0%, #faf7f2 100%);">
+  <h1 class="font-serif text-5xl font-bold text-amber-900 mb-3">Reading Communities</h1>
+  <p class="text-amber-600 max-w-xl mx-auto">
+    Join groups of readers who share your taste. Discuss books, share
+    recommendations, and read together.
+  </p>
+</div>
 
-  <div class="max-w-7xl mx-auto px-4 pb-20">
+<div class="max-w-7xl mx-auto px-4 pb-20">
 
-    <!-- Flash messages -->
-    <% if (success_msg && success_msg.length > 0) { %>
-      <div class="flash-success mb-6"><span>✓</span> <%= success_msg %></div>
-    <% } %>
-    <% if (error_msg && error_msg.length > 0) { %>
-      <div class="flash-error mb-6"><span>✕</span> <%= error_msg %></div>
-    <% } %>
+  <!-- Flash messages -->
+  <% if (success_msg && success_msg.length > 0) { %>
+    <div class="bg-green-50 border border-green-300 text-green-800 px-4 py-3
+                rounded-lg mb-6 text-sm flex items-center gap-2">
+      <span>✓</span> <%= success_msg %>
+    </div>
+  <% } %>
+  <% if (error_msg && error_msg.length > 0) { %>
+    <div class="bg-red-50 border border-red-300 text-red-800 px-4 py-3
+                rounded-lg mb-6 text-sm flex items-center gap-2">
+      <span>✕</span> <%= error_msg %>
+    </div>
+  <% } %>
 
-    <!-- Create community button -->
-    <% if (currentUser) { %>
-      <div class="flex justify-end mb-6">
-        <button onclick="document.getElementById('create-modal').classList.remove('hidden')"
-                class="btn-primary">
-          + Create Community
-        </button>
-      </div>
-    <% } %>
+  <!-- Create button -->
+  <% if (currentUser) { %>
+    <div class="flex justify-end mb-8">
+      <button onclick="document.getElementById('create-modal').classList.remove('hidden')"
+              class="bg-amber-700 hover:bg-amber-800 text-white font-semibold
+                     py-2.5 px-6 rounded-full transition-all duration-200
+                     shadow-md hover:shadow-lg hover:-translate-y-0.5">
+        + Create Community
+      </button>
+    </div>
+  <% } %>
 
-    <!-- Communities grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      <% communities.forEach(community => { %>
-        <div class="bg-white rounded-2xl overflow-hidden shadow-warm
-                    hover:shadow-warm-lg transition-all duration-300
-                    hover:-translate-y-1 border border-amber-50">
+  <!-- Communities grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <% communities.forEach(community => { %>
+      <div class="bg-white rounded-2xl overflow-hidden shadow-md
+                  hover:shadow-xl transition-all duration-300
+                  hover:-translate-y-1 border border-amber-50 flex flex-col">
 
-          <!-- Cover image -->
-          <div class="relative h-36 overflow-hidden">
-            <img src="<%= community.coverImage %>"
-                 alt="<%= community.name %>"
-                 class="w-full h-full object-cover"
-                 onerror="this.style.background='linear-gradient(135deg,#c9a96e,#8b6914)'"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <!-- Cover image -->
+        <div class="relative h-41 overflow-hidden flex-shrink-0">
+          <img
+            src="<%= community.coverImage %>"
+            alt="<%= community.name %>"
+            class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,#c9a96e,#8b6914)';"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
 
-            <!-- Genre badge -->
-            <span class="absolute top-3 left-3 bg-white/90 text-amber-800
-                         text-xs font-semibold px-2.5 py-1 rounded-full">
-              <%= community.genre %>
-            </span>
+          <!-- Genre badge top left -->
+          <span class="absolute top-3 left-3 bg-white/90 text-amber-800
+                       text-xs font-semibold px-2.5 py-1 rounded-full">
+            <%= community.genre %>
+          </span>
 
-            <!-- Member count -->
-            <span class="absolute bottom-3 right-3 text-white text-xs">
-              👥 <%= community.memberCount %> members
-            </span>
-          </div>
+          <!-- Member count bottom right -->
+          <span class="absolute bottom-3 right-3 text-white text-xs
+                       flex items-center gap-1">
+            <span>👥</span> <%= community.memberCount %> members
+          </span>
 
-          <!-- Content -->
-          <div class="p-5">
-            <h3 class="font-serif text-lg font-semibold text-amber-900 mb-2">
+          <!-- Community name on image -->
+          <div class="absolute bottom-3 left-3">
+            <h3 class="font-serif text-white font-bold text-lg leading-tight drop-shadow-lg">
               <%= community.name %>
             </h3>
-            <p class="text-amber-700 text-sm leading-relaxed mb-5 line-clamp-3">
-              <%= community.description %>
-            </p>
-
-            <!-- Join / Leave button -->
-            <% if (currentUser) { %>
-              <form action="/communities/join/<%= community._id %>" method="POST">
-                <button type="submit"
-                        class="w-full <%= community.isJoined
-                          ? 'border-2 border-amber-300 text-amber-600 hover:bg-red-50 hover:border-red-300 hover:text-red-600'
-                          : 'btn-primary' %>
-                          font-semibold py-2 px-4 rounded-full text-sm transition-all duration-200">
-                  <%= community.isJoined ? '✓ Joined — Leave' : 'Join Community' %>
-                </button>
-              </form>
-            <% } else { %>
-              <a href="/auth/login"
-                 class="block text-center btn-secondary text-sm py-2">
-                Login to Join
-              </a>
-            <% } %>
           </div>
         </div>
-      <% }) %>
-    </div>
 
-  </div>
+        <!-- Card body -->
+        <div class="p-5 flex flex-col flex-1">
 
-  <!-- ── Create Community Modal ─────────────────────────────────────────────── -->
-  <div id="create-modal"
-       class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden"
-       style="background: rgba(44,24,16,0.7); backdrop-filter: blur(4px);">
-    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="font-serif text-2xl font-bold text-amber-900">Create a Community</h2>
-        <button onclick="document.getElementById('create-modal').classList.add('hidden')"
-                class="text-amber-400 hover:text-amber-700 text-2xl leading-none">✕</button>
+          <p class="text-amber-700 text-sm leading-relaxed mb-5 flex-1">
+            <%= community.description %>
+          </p>
+
+          <!-- Join/Leave button -->
+          <% if (currentUser) { %>
+            <form action="/communities/join/<%= community._id %>" method="POST">
+              <button type="submit"
+                class="w-full font-semibold py-2 px-4 rounded-full text-sm
+                       transition-all duration-200
+                       <%= community.isJoined
+                         ? 'border-2 border-amber-200 text-amber-600 hover:bg-red-50 hover:border-red-300 hover:text-red-600'
+                         : 'bg-amber-700 hover:bg-amber-800 text-white shadow-md hover:-translate-y-0.5' %>">
+                <%= community.isJoined ? '✓ Joined — Leave' : 'Join Community' %>
+              </button>
+            </form>
+          <% } else { %>
+            <a href="/auth/login"
+               class="block text-center border-2 border-amber-300 text-amber-700
+                      hover:bg-amber-700 hover:text-white hover:border-amber-700
+                      font-semibold py-2 px-4 rounded-full text-sm
+                      transition-all duration-200">
+              Login to Join
+            </a>
+          <% } %>
+        </div>
       </div>
-
-      <form action="/communities/create" method="POST" class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium text-amber-800 mb-1.5">
-            Community Name
-          </label>
-          <input type="text" name="name" required maxlength="80"
-                 placeholder="e.g. Dark Romance Addicts"
-                 class="form-input"/>
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-amber-800 mb-1.5">Genre</label>
-          <select name="genre" required class="form-input">
-            <option value="">Select a genre...</option>
-            <% ['Fantasy','Romance','Thriller','Mystery','Sci-Fi','Horror','Historical','Non-Fiction','General'].forEach(g => { %>
-              <option value="<%= g %>"><%= g %></option>
-            <% }) %>
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-amber-800 mb-1.5">Description</label>
-          <textarea name="description" required maxlength="300" rows="3"
-                    placeholder="What's this community about?"
-                    class="form-input resize-none"></textarea>
-        </div>
-
-        <div class="flex gap-3 pt-2">
-          <button type="submit" class="btn-primary flex-1">Create Community</button>
-          <button type="button"
-                  onclick="document.getElementById('create-modal').classList.add('hidden')"
-                  class="btn-secondary flex-1">
-            Cancel
-          </button>
-        </div>
-      </form>
-    </div>
+    <% }) %>
   </div>
+</div>
 
-  <%- include('../partials/footer') %>
+<!-- Create Community Modal -->
+<div id="create-modal"
+     class="fixed inset-0 z-50 hidden items-center justify-center p-4"
+     style="background:rgba(44,24,16,0.7); backdrop-filter:blur(4px);"
+     onclick="if(event.target===this) this.classList.add('hidden')">
+  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8"
+       onclick="event.stopPropagation()">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="font-serif text-2xl font-bold text-amber-900">Create a Community</h2>
+      <button onclick="document.getElementById('create-modal').classList.add('hidden')"
+              class="text-amber-400 hover:text-amber-700 text-2xl leading-none">✕</button>
+    </div>
+    <form action="/communities/create" method="POST" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-amber-800 mb-1.5">
+          Community Name
+        </label>
+        <input type="text" name="name" required maxlength="80"
+               placeholder="e.g. Dark Romance Addicts"
+               class="w-full px-4 py-3 border border-amber-200 rounded-xl
+                      bg-amber-50/50 focus:outline-none focus:ring-2
+                      focus:ring-amber-400 text-amber-900"/>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-amber-800 mb-1.5">Genre</label>
+        <select name="genre" required
+                class="w-full px-4 py-3 border border-amber-200 rounded-xl
+                       bg-amber-50/50 focus:outline-none focus:ring-2
+                       focus:ring-amber-400 text-amber-900">
+          <option value="">Select a genre...</option>
+          <% ['Fantasy','Romance','Thriller','Mystery','Sci-Fi',
+              'Horror','Historical','Non-Fiction','General'].forEach(g => { %>
+            <option value="<%= g %>"><%= g %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-amber-800 mb-1.5">Description</label>
+        <textarea name="description" required maxlength="300" rows="3"
+                  placeholder="What's this community about?"
+                  class="w-full px-4 py-3 border border-amber-200 rounded-xl
+                         bg-amber-50/50 focus:outline-none focus:ring-2
+                         focus:ring-amber-400 text-amber-900 resize-none"></textarea>
+      </div>
+      <div class="flex gap-3 pt-2">
+        <button type="submit"
+                class="flex-1 bg-amber-700 hover:bg-amber-800 text-white
+                       font-semibold py-3 px-6 rounded-full transition-colors">
+          Create Community
+        </button>
+        <button type="button"
+                onclick="document.getElementById('create-modal').classList.add('hidden')"
+                class="flex-1 border-2 border-amber-300 text-amber-700
+                       hover:bg-amber-50 font-semibold py-3 px-6
+                       rounded-full transition-colors">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Fix: show modal flex not block -->
+<script>
+  document.getElementById('create-modal').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.add('hidden');
+  });
+  // Override hidden to use flex
+  const modal = document.getElementById('create-modal');
+  const orig = modal.classList.remove.bind(modal.classList);
+  modal.classList.remove = function(cls) {
+    orig(cls);
+    if (cls === 'hidden') modal.style.display = 'flex';
+  };
+  const origAdd = modal.classList.add.bind(modal.classList);
+  modal.classList.add = function(cls) {
+    origAdd(cls);
+    if (cls === 'hidden') modal.style.display = 'none';
+  };
+</script>
+
+<%- include('../partials/footer') %>
 </body>
 </html>
