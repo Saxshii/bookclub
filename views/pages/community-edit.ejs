@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit <%= community.name %> — BookClub</title>
+  <link rel="stylesheet" href="/css/output.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body { background: #faf7f2; font-family: 'Lato', sans-serif; }
+
+    .page-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .edit-container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      width: 100%;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: #9b4a12; font-size: 13px; font-weight: 600;
+      text-decoration: none; margin-bottom: 28px;
+      transition: gap 0.2s;
+    }
+    .back-link:hover { gap: 12px; }
+
+    /* Cover hero */
+    .cover-section {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 32px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+      cursor: pointer;
+    }
+    .cover-section img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .cover-section:hover img { transform: scale(1.04); }
+    .cover-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.35);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .cover-section:hover .cover-overlay { opacity: 1; }
+    .cover-overlay span {
+      background: rgba(255,255,255,0.9);
+      color: #3d1f08;
+      font-size: 13px; font-weight: 700;
+      padding: 8px 18px; border-radius: 999px;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    /* Form card */
+    .form-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(139,105,20,0.08);
+      border: 1px solid #f0e4d0;
+    }
+
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: #3d1f08; margin-bottom: 6px;
+    }
+    .form-subtitle {
+      font-size: 13px; color: #a8845a; margin-bottom: 28px;
+    }
+
+    .field { margin-bottom: 20px; }
+    .field label {
+      display: block;
+      font-size: 12px; font-weight: 700;
+      color: #7a4a28; letter-spacing: 0.07em;
+      text-transform: uppercase; margin-bottom: 7px;
+    }
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 11px 15px;
+      border: 1.5px solid #e8d5b7;
+      border-radius: 12px;
+      font-size: 14px;
+      font-family: 'Lato', sans-serif;
+      color: #2d1206;
+      background: #faf7f2;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: #9b4a12;
+      box-shadow: 0 0 0 3px rgba(155,74,18,0.1);
+    }
+    .field textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+    .char-count {
+      font-size: 11px; color: #c9a96e;
+      text-align: right; margin-top: 4px;
+    }
+
+    /* Cover upload */
+    .upload-label {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px;
+      border: 2px dashed #e8d5b7;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .upload-label:hover { border-color: #9b4a12; background: #fdf5eb; }
+    .upload-label span { font-size: 13px; color: #7a4a28; font-weight: 600; }
+    .upload-label small { font-size: 11px; color: #c9a96e; display: block; margin-top: 2px; }
+
+    /* Preview */
+    #preview-wrap {
+      display: none;
+      margin-top: 10px;
+      position: relative;
+      height: 100px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1.5px solid #e8d5b7;
+    }
+    #preview-img { width: 100%; height: 100%; object-fit: cover; }
+    #clear-preview {
+      position: absolute; top: 6px; right: 6px;
+      background: rgba(0,0,0,0.55); color: #fff;
+      border: none; border-radius: 50%;
+      width: 24px; height: 24px; font-size: 12px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Divider */
+    .divider {
+      border: none; border-top: 1px solid #f0e4d0;
+      margin: 24px 0;
+    }
+
+    /* Buttons */
+    .btn-row { display: flex; gap: 12px; }
+    .btn-save {
+      flex: 1;
+      padding: 13px 0;
+      background: linear-gradient(135deg, #7a3a0a, #b8601a);
+      color: #fff; border: none;
+      border-radius: 999px; font-size: 14px; font-weight: 700;
+      cursor: pointer; font-family: 'Lato', sans-serif;
+      box-shadow: 0 4px 14px rgba(122,58,10,0.3);
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-save:hover { opacity: 0.92; transform: translateY(-1px); }
+
+    .btn-cancel {
+      padding: 13px 24px;
+      border: 2px solid #e8d5b7; color: #7a4a28;
+      background: none; border-radius: 999px;
+      font-size: 14px; font-weight: 700;
+      cursor: pointer; font-family: 'Lato', sans-serif;
+      text-decoration: none; display: flex; align-items: center;
+      transition: background 0.2s;
+    }
+    .btn-cancel:hover { background: #fdf5eb; }
+
+    /* Flash */
+    .flash {
+      padding: 12px 16px; border-radius: 10px;
+      font-size: 13px; margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .flash-success { background: #f0fdf4; border: 1px solid #86efac; color: #166534; }
+    .flash-error   { background: #fff0f0; border: 1px solid #fca5a5; color: #dc2626; }
+    .flash button  { background: none; border: none; cursor: pointer; font-size: 16px; opacity: 0.6; }
+    .flash button:hover { opacity: 1; }
+  </style>
+</head>
+<body class="page-wrap">
+
+<%- include('../partials/navbar') %>
+
+<div class="edit-container" style="padding-top: 100px;">
+
+  <a href="/communities/<%= community._id %>/chat" class="back-link">
+    ← Back to Chat
+  </a>
+
+  <!-- Flash messages -->
+  <% if (success_msg && success_msg.length > 0) { %>
+    <div class="flash flash-success" id="flash-s">
+      <span>✓ <%= success_msg %></span>
+      <button onclick="this.parentElement.style.display='none'">✕</button>
+    </div>
+  <% } %>
+  <% if (error_msg && error_msg.length > 0) { %>
+    <div class="flash flash-error" id="flash-e">
+      <span>✕ <%= error_msg %></span>
+      <button onclick="this.parentElement.style.display='none'">✕</button>
+    </div>
+  <% } %>
+
+  <!-- Cover image (click to change) -->
+  <label for="cover-upload-hero" class="cover-section">
+    <img id="hero-img"
+         src="<%= community.getCover() %>"
+         alt="<%= community.name %>"
+         onerror="this.src='/images/fallback-cover.jpg'"/>
+    <div class="cover-overlay">
+      <span>📷 Change Cover</span>
+    </div>
+  </label>
+
+  <!-- Edit form -->
+  <div class="form-card">
+    <h1 class="form-title">Edit Community</h1>
+    <p class="form-subtitle">Changes are visible to all members immediately.</p>
+
+    <form action="/communities/<%= community._id %>/edit" method="POST"
+          enctype="multipart/form-data" id="edit-form">
+
+      <!-- Hidden file input linked to hero cover -->
+      <input type="file" id="cover-upload-hero" name="coverImage"
+             accept="image/jpeg,image/jpg,image/png,image/webp"
+             class="hidden" onchange="previewHero(this)"/>
+
+      <div class="field">
+        <label>Community Name</label>
+        <input type="text" name="name" maxlength="80" required
+               value="<%= community.name %>"/>
+      </div>
+
+      <div class="field">
+        <label>Genre</label>
+        <select name="genre" required>
+          <% ['Fantasy','Romance','Thriller','Mystery','Sci-Fi',
+              'Horror','Historical','Non-Fiction','General'].forEach(g => { %>
+            <option value="<%= g %>" <%= community.genre === g ? 'selected' : '' %>><%= g %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Description</label>
+        <textarea name="description" maxlength="500" required
+                  id="desc-field"
+                  oninput="updateCount(this, 'desc-count', 500)"><%= community.description %></textarea>
+        <div class="char-count">
+          <span id="desc-count"><%= community.description.length %></span>/500
+        </div>
+      </div>
+
+      <!-- Alternative cover upload (visible in form too) -->
+      <div class="field">
+        <label>Cover Image</label>
+        <label for="cover-upload-hero" class="upload-label">
+          <span style="font-size:1.4rem;">🖼️</span>
+          <div>
+            <span>Click cover above or here to upload</span>
+            <small>JPG, PNG, WebP — max 5MB</small>
+          </div>
+        </label>
+        <div id="preview-wrap">
+          <img id="preview-img" src="" alt="preview"/>
+          <button type="button" id="clear-preview" onclick="clearPreview()">✕</button>
+        </div>
+      </div>
+
+      <hr class="divider"/>
+
+      <div class="btn-row">
+        <button type="submit" class="btn-save">Save Changes</button>
+        <a href="/communities/<%= community._id %>/chat" class="btn-cancel">Cancel</a>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
+
+<script>
+  // Auto-dismiss flash
+  ['flash-s','flash-e'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) setTimeout(() => el.style.display = 'none', 3500);
+  });
+
+  // Live char count
+  function updateCount(el, countId, max) {
+    document.getElementById(countId).textContent = el.value.length;
+  }
+
+  // Hero cover preview
+  function previewHero(input) {
+    if (!input.files || !input.files[0]) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      document.getElementById('hero-img').src     = e.target.result;
+      document.getElementById('preview-img').src  = e.target.result;
+      document.getElementById('preview-wrap').style.display = 'block';
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+
+  function clearPreview() {
+    document.getElementById('cover-upload-hero').value = '';
+    document.getElementById('preview-wrap').style.display = 'none';
+    document.getElementById('hero-img').src = '<%= community.getCover() %>';
+  }
+</script>
+</body>
+</html>

@@ -313,17 +313,23 @@
 
 <div class="max-w-7xl mx-auto px-4 pb-20">
 
-  <!-- Flash messages -->
+  <!-- Flash messages (auto-dismiss after 3s) -->
   <% if (success_msg && success_msg.length > 0) { %>
-    <div class="bg-green-50 border border-green-300 text-green-800 px-4 py-3
-                rounded-lg mb-5 text-sm flex items-center gap-2 mt-6">
-      <span>✓</span> <%= success_msg %>
+    <div id="flash-s" class="bg-green-50 border border-green-300 text-green-800 px-4 py-3
+                rounded-lg mb-5 text-sm flex items-center justify-between gap-2 mt-6
+                transition-opacity duration-300">
+      <span>✓ <%= success_msg %></span>
+      <button onclick="document.getElementById('flash-s').style.display='none'"
+              class="text-green-500 hover:text-green-800 font-bold text-base leading-none ml-2">✕</button>
     </div>
   <% } %>
   <% if (error_msg && error_msg.length > 0) { %>
-    <div class="bg-red-50 border border-red-300 text-red-800 px-4 py-3
-                rounded-lg mb-5 text-sm flex items-center gap-2 mt-6">
-      <span>✕</span> <%= error_msg %>
+    <div id="flash-e" class="bg-red-50 border border-red-300 text-red-800 px-4 py-3
+                rounded-lg mb-5 text-sm flex items-center justify-between gap-2 mt-6
+                transition-opacity duration-300">
+      <span>✕ <%= error_msg %></span>
+      <button onclick="document.getElementById('flash-e').style.display='none'"
+              class="text-red-400 hover:text-red-700 font-bold text-base leading-none ml-2">✕</button>
     </div>
   <% } %>
 
@@ -427,22 +433,14 @@
           <div class="flex gap-2">
             <% if (currentUser) { %>
 
-              <!-- Open Chat (only if member) -->
+              <!-- Open Chat (only if member) — links to dedicated chat page -->
               <% if (community.isJoined) { %>
-                <button
-                  onclick='openChat(<%= JSON.stringify({
-                    id:          community._id,
-                    name:        community.name,
-                    cover:       community.coverImage,
-                    memberCount: community.memberCount,
-                    isAdmin:     community.isAdmin,
-                    genre:       community.genre
-                  }) %>)'
-                  class="flex-1 bg-amber-700 hover:bg-amber-800 text-white font-semibold
-                         py-2 px-3 rounded-full text-xs transition-all duration-200
-                         shadow-md hover:-translate-y-0.5 flex items-center justify-center gap-1.5">
+                <a href="/communities/<%= community._id %>/chat"
+                   class="flex-1 bg-amber-700 hover:bg-amber-800 text-white font-semibold
+                          py-2 px-3 rounded-full text-xs transition-all duration-200
+                          shadow-md hover:-translate-y-0.5 flex items-center justify-center gap-1.5">
                   💬 Open Chat
-                </button>
+                </a>
               <% } %>
 
               <!-- Join / Leave -->
@@ -839,6 +837,12 @@ function clearCover() {
   document.getElementById('cover-preview-wrap').style.display = 'none';
   document.getElementById('cover-preview-img').src = '';
 }
+
+// ── Flash auto-dismiss ────────────────────────────────────────────────────────
+['flash-s', 'flash-e'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) setTimeout(() => el.style.display = 'none', 3500);
+});
 
 // ── Keyboard close ────────────────────────────────────────────────────────────
 document.addEventListener('keydown', e => {
