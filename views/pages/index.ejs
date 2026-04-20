@@ -379,14 +379,20 @@
               </p>
 
               <div class="flex gap-4">
-                <a href="/auth/signup" class="bg-yellow-400 text-black font-bold py-3 px-6 rounded-full">
-                  Let's build your Shelf
-                </a>
-
-                <a href="/auth/login"
-                  class="border border-white text-white py-3 px-6 rounded-full hover:bg-white hover:text-black">
-                  Login
-                </a>
+                <% if (currentUser) { %>
+                  <a href="/books/bookshelf"
+                    class="bg-yellow-400 text-black font-bold py-3 px-6 rounded-full hover:bg-yellow-300 transition-colors">
+                    📚 Go to My Shelf
+                  </a>
+                  <% } else { %>
+                    <a href="/auth/signup" class="bg-yellow-400 text-black font-bold py-3 px-6 rounded-full">
+                      Let's build your Shelf
+                    </a>
+                    <a href="/auth/login"
+                      class="border border-white text-white py-3 px-6 rounded-full hover:bg-white hover:text-black transition-colors">
+                      Login
+                    </a>
+                    <% } %>
               </div>
 
             </div>
@@ -465,28 +471,9 @@
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════════════════════════════════ -->
-    <!-- FOOTER CTA BANNER                                                       -->
-    <!-- ═══════════════════════════════════════════════════════════════════════ -->
-    <% if (!currentUser) { %>
-      <section class="py-16 px-4 bg-amber-50 border-t border-amber-100">
-        <div class="max-w-3xl mx-auto text-center">
-          <p class="text-5xl mb-4">📚</p>
-          <h2 class="font-serif text-3xl md:text-4xl font-bold text-amber-900 mb-4">
-            Ready to start your reading journey?
-          </h2>
-          <p class="text-amber-700 mb-8 max-w-md mx-auto">
-            Join BookClub for free and get access to millions of books,
-            personal shelves, and a community of readers.
-          </p>
-          <a href="/auth/signup" class="btn-primary text-base py-3.5 px-10">
-            Create Free Account →
-          </a>
-        </div>
-      </section>
-      <% } %>
 
-        <%- include('../partials/footer') %>
+
+    <%- include('../partials/footer') %>
 
 </body>
 

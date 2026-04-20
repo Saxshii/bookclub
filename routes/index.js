@@ -1,4 +1,3 @@
-
 const express = require('express');
 const router  = express.Router();
 const User      = require('../models/user');
@@ -18,37 +17,39 @@ const coverMap = {
 };
 
 const genres = [
-  { name: 'Fantasy',     slug: 'fantasy',     
-    cardImage: '/images/genre-covers/fantasy.jpg',   
-    bgImage:   '/images/genres/fantasy.jpg'  }, // for genre page},
-  { name: 'Romance',     slug: 'romance',     
-    cardImage: '/images/genre-covers/romance.jpg',   
-    bgImage:   '/images/genres/romance.jpg'  },
-  { name: 'Thriller',    slug: 'thriller',    
-    cardImage: '/images/genre-covers/thriller.jpg',  
-    bgImage:   '/images/genres/thriller.jpg' }, 
-  { name: 'Mystery',     slug: 'mystery',     
-    cardImage: '/images/genre-covers/mystery.jpg',   
-    bgImage:   '/images/genres/mystery.jpg'  }, 
-  { name: 'Sci-Fi',      slug: 'sci-fi',      
-    cardImage: '/images/genre-covers/sci-fi.jpg',   
-    bgImage:   '/images/genres/sci-fi.jpg'   }, 
-  { name: 'Horror',      slug: 'horror',      
-    cardImage: '/images/genre-covers/horror.jpg',    
-    bgImage:   '/images/genres/horror.jpg'   }, 
-  { name: 'Historical',  slug: 'historical',  
-    cardImage: '/images/genre-covers/historical.jpg', 
-    bgImage:   '/images/genres/historical.jpg' }, 
-  { name: 'Non-Fiction', slug: 'non-fiction', 
+  { name: 'Fantasy',     slug: 'fantasy',
+    cardImage: '/images/genre-covers/fantasy.jpg',
+    bgImage:   '/images/genres/fantasy.jpg' },
+  { name: 'Romance',     slug: 'romance',
+    cardImage: '/images/genre-covers/romance.jpg',
+    bgImage:   '/images/genres/romance.jpg' },
+  { name: 'Thriller',    slug: 'thriller',
+    cardImage: '/images/genre-covers/thriller.jpg',
+    bgImage:   '/images/genres/thriller.jpg' },
+  { name: 'Mystery',     slug: 'mystery',
+    cardImage: '/images/genre-covers/mystery.jpg',
+    bgImage:   '/images/genres/mystery.jpg' },
+  { name: 'Sci-Fi',      slug: 'sci-fi',
+    cardImage: '/images/genre-covers/sci-fi.jpg',
+    bgImage:   '/images/genres/sci-fi.jpg' },
+  { name: 'Horror',      slug: 'horror',
+    cardImage: '/images/genre-covers/horror.jpg',
+    bgImage:   '/images/genres/horror.jpg' },
+  { name: 'Historical',  slug: 'historical',
+    cardImage: '/images/genre-covers/historical.jpg',
+    bgImage:   '/images/genres/historical.jpg' },
+  { name: 'Non-Fiction', slug: 'non-fiction',
     cardImage: '/images/genre-covers/non-fiction.jpg',
-    bgImage:   '/images/genres/non-fiction.jpg' }, 
+    bgImage:   '/images/genres/non-fiction.jpg' },
 ];
 
+// ── Featured communities shown on homepage (hardcoded fallback display data) ──
+// Mystery swapped out for Non-Fiction
 const featuredCommunities = [
-  { name: 'Dragon Readers',     genre: 'Fantasy',  members: 1240, description: 'For those who live and breathe fantasy worlds.' },
-  { name: 'Midnight Thrillers', genre: 'Thriller', members: 890,  description: "We read thrillers so you don't have to sleep." },
-  { name: 'Hopeless Romantics', genre: 'Romance',  members: 2100, description: 'Love stories, book recs, and lots of feelings.' },
-  { name: 'The Mystery Circle', genre: 'Mystery',  members: 670,  description: 'Solving fictional crimes since 2020.' },
+  { name: 'Dragon Readers',   genre: 'Fantasy',     members: 1240, description: 'For those who live and breathe fantasy worlds.' },
+  { name: 'Midnight Thrillers', genre: 'Thriller',    members: 890,  description: "We read thrillers so you don't have to sleep." },
+  { name: 'Hopeless Romantics', genre: 'Romance',     members: 2100, description: 'Love stories, book recs, and lots of feelings.' },
+  { name: 'Mind & Meaning',     genre: 'Non-Fiction', members: 530,  description: 'Real stories, real ideas, real change.' },
 ];
 
 const carouselBooks = [
@@ -66,7 +67,12 @@ const carouselBooks = [
 
 // ─── GET / ───────────────────────────────────────────────────────────────────
 router.get('/', (req, res) => {
-  res.render('pages/index', { title: 'BookClub — Your Virtual Library', genres, featuredCommunities, carouselBooks });
+  res.render('pages/index', {
+    title: 'BookClub — Your Virtual Library',
+    genres,
+    featuredCommunities,
+    carouselBooks
+  });
 });
 
 // ─── GET /explore ─────────────────────────────────────────────────────────────
@@ -89,7 +95,10 @@ router.get('/admin', isAdmin, async (req, res) => {
     });
     const recentUsers  = await User.find().sort({ createdAt: -1 }).limit(6).select('name email avatar createdAt');
     const communities  = await Community.find().sort({ members: -1 }).limit(8).select('name genre members description isFlagged');
-    res.render('pages/admin', { title: 'Admin Dashboard — BookClub', totalUsers, totalCommunities, newUsersThisWeek, recentUsers, communities });
+    res.render('pages/admin', {
+      title: 'Admin Dashboard — BookClub',
+      totalUsers, totalCommunities, newUsersThisWeek, recentUsers, communities
+    });
   } catch (err) {
     console.error('Admin error:', err.message);
     req.flash('error', 'Could not load admin dashboard.');
@@ -119,6 +128,14 @@ router.get('/genre/:genreName', (req, res) => {
     books,
     currentPage: page,
     totalPages,
+  });
+});
+
+router.get('/test-admin', (req, res) => {
+  res.json({
+    user: req.user ? req.user.name : 'not logged in',
+    isAdmin: req.user ? req.user.isAdmin : false,
+    isAuthenticated: req.isAuthenticated()
   });
 });
 

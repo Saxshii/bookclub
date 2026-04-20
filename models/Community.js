@@ -1,5 +1,22 @@
 const mongoose = require('mongoose');
-
+ 
+const MessageSchema = new mongoose.Schema({
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  content: {
+    type: String,
+    required: true,
+    maxlength: [1000, 'Message cannot exceed 1000 characters']
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+ 
 const CommunitySchema = new mongoose.Schema({
   name: {
     type: String,
@@ -11,7 +28,7 @@ const CommunitySchema = new mongoose.Schema({
   description: {
     type: String,
     required: [true, 'Description is required'],
-    maxlength: [300, 'Description cannot exceed 300 characters']
+    maxlength: [500, 'Description cannot exceed 500 characters']
   },
   genre: {
     type: String,
@@ -20,32 +37,23 @@ const CommunitySchema = new mongoose.Schema({
   },
   coverImage: {
     type: String,
-    default: '' 
+    default: ''
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
+  // admins includes createdBy + any promoted members
+  admins: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   members: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }],
- 
-  posts: [{
-    author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    },
-    content: {
-      type: String,
-      maxlength: [500, 'Post cannot exceed 500 characters']
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now
-    }
-  }],
+  messages: [MessageSchema],
   createdAt: {
     type: Date,
     default: Date.now
