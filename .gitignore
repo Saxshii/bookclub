@@ -1,5 +1,3 @@
 node_modules/
 .env
-.env.*
-public/images/
-seeds/
+
